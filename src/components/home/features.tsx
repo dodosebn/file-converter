@@ -1,4 +1,4 @@
-import { someSay } from "./data/somesay";
+import { someSay } from "./data";
 
 const Features = () => {
   return (

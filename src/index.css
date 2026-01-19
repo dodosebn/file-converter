@@ -127,4 +127,7 @@
       hsl(var(--accent)) 100%
     );
   }
+  .normalColor{
+    color: var(--primary);
+  }
 }
