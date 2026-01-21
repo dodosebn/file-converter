@@ -1,33 +1,21 @@
-import { Eye, EyeOff, Lock, Mail, MoveRight, User } from "lucide-react";
+import { Eye, EyeOff, Lock, Mail, MoveRight } from "lucide-react";
 import { FaGoogle } from "react-icons/fa";
 import { RiGithubFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { AccountIntro, LoginAltBtn } from "../ui";
 
-const SignUpForm = () => {
+const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
     <div className="flex items-center justify-center bg-[#f0f6ff]">
       <form className="w-[26rem]  rounded-xl bg-white p-6  shadow-xl space-y-6">
         <AccountIntro
-          heading="Create an account"
-          paragraph="Get started with 20 free conversions"
+          heading="Welcome Back"
+          paragraph="Enter Your Credidentials to access your account
+"
         />
-
-        <div className="space-y-1">
-          <label className="text-sm font-medium text-gray-700">Name</label>
-          <div className="relative">
-            <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-            <input
-              type="text"
-              placeholder="John Doe"
-              className="w-full rounded-lg border bg-[#f0f6ff] border-gray-300 
-              pl-10 pr-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#18b4d8]"
-            />
-          </div>
-        </div>
 
         <div className="space-y-1">
           <label className="text-sm font-medium text-gray-700">Email</label>
@@ -78,7 +66,8 @@ const SignUpForm = () => {
     "
             />
             <svg
-              className="pointer-events-none absolute h-3 w-3 text-white opacity-0 peer-checked:opacity-100"
+              className="pointer-events-none absolute h-3 w-3 text-white opacity-0
+               peer-checked:opacity-100"
               viewBox="0 0 20 20"
               fill="currentColor"
             >
@@ -90,15 +79,8 @@ const SignUpForm = () => {
             </svg>
           </label>
 
-          <span>
-            I agree to the{" "}
-            <span className="text-[#18b4d8] hover:underline cursor-pointer">
-              Terms of Service
-            </span>{" "}
-            and{" "}
-            <span className="text-[#18b4d8] hover:underline cursor-pointer">
-              Privacy Policy
-            </span>
+          <span className="cursor-pointer">
+           Remember me for 30 days
           </span>
         </label>
 
@@ -106,7 +88,7 @@ const SignUpForm = () => {
           type="button"
           className="w-full flex items-center justify-center gap-2 rounded-lg gradient-card py-3 text-white font-medium hover:opacity-90 transition"
         >
-          Create account
+          Sign In
           <MoveRight className="w-4 h-4" />
         </button>
 
@@ -131,10 +113,10 @@ const SignUpForm = () => {
         <p className="text-center text-sm text-gray-600">
           Already have an account?{" "}
           <Link
-            to="/login"
+            to="/signup"
             className="text-blue-500 font-semibold hover:underline"
           >
-            Sign in
+            Sign up
           </Link>
         </p>
       </form>
@@ -142,4 +124,4 @@ const SignUpForm = () => {
   );
 };
 
-export default SignUpForm;
+export default LoginForm;

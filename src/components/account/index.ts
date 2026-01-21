@@ -1,3 +1,4 @@
 import SignUpForm from "./signUpForm";
 import SignUpRightty from "./signUpRightty";
-export { SignUpForm, SignUpRightty };
+import LoginForm from "./loginForm";
+export { SignUpForm, SignUpRightty, LoginForm};

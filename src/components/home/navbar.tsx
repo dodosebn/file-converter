@@ -1,5 +1,5 @@
 import { ArrowRight, FileImage } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const Navbar = () => {
   const Navigate = useNavigate();
   const handleClick = (url: string) => {
@@ -8,7 +8,7 @@ const Navbar = () => {
   return (
     <header className="border-b border-border bg-[#f8fbff]">
   <div className="container mx-auto px-4 sm:px-6 py-4 flex flex-row flex-nowrap items-center justify-between">
-    
+    <Link to='/'>
     <div className="flex items-center gap-2 shrink-0">
       <div className="w-8 h-8 rounded-lg gradient-card flex items-center justify-center">
         <FileImage className="w-4 h-4 text-[#fafdfe]" />
@@ -17,7 +17,7 @@ const Navbar = () => {
         FastConvert
       </span>
     </div>
-
+</Link>
     <div className="flex items-center gap-4 shrink-0">
       <button
         onClick={() => handleClick("/login")}
