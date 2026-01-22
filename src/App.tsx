@@ -1,10 +1,9 @@
 
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
-import HomePage from './pages/homePage'
-import LoginPage from './pages/loginPage'
-import SignUpPage from './pages/signUpPage'
+
 import { Layout } from './components'
+import { ForgotPage, HomePage, LoginPage, SignUpPage } from './pages'
 function App() {
 
   return (
@@ -14,6 +13,7 @@ function App() {
       <Route path='/' element={<HomePage />} />
       <Route path='/login' element={<LoginPage />} />
       <Route path='/signup' element={<SignUpPage />} />
+      <Route path='/forgot-password' element={<ForgotPage />} />
     </Routes>
     </Layout>
     </BrowserRouter>)

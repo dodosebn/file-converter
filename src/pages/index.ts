@@ -1,4 +1,5 @@
 import HomePage from "./homePage";
 import LoginPage from "./loginPage";
-import signUpPage from "./signUpPage";
-export default {HomePage, LoginPage, signUpPage};
+import SignUpPage from "./signUpPage";
+import ForgotPage from "./forgotPage";
+export  {HomePage, LoginPage, SignUpPage, ForgotPage};

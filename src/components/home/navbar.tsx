@@ -1,5 +1,6 @@
-import { ArrowRight, FileImage } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { Logo } from "../ui";
 const Navbar = () => {
   const Navigate = useNavigate();
   const handleClick = (url: string) => {
@@ -8,20 +9,11 @@ const Navbar = () => {
   return (
     <header className="border-b border-border bg-[#f8fbff]">
   <div className="container mx-auto px-4 sm:px-6 py-4 flex flex-row flex-nowrap items-center justify-between">
-    <Link to='/'>
-    <div className="flex items-center gap-2 shrink-0">
-      <div className="w-8 h-8 rounded-lg gradient-card flex items-center justify-center">
-        <FileImage className="w-4 h-4 text-[#fafdfe]" />
-      </div>
-      <span className="font-semibold text-lg text-foreground">
-        FastConvert
-      </span>
-    </div>
-</Link>
+   <Logo />
     <div className="flex items-center gap-4 shrink-0">
       <button
         onClick={() => handleClick("/login")}
-        className="text-[#68788e] font-medium hover:text-foreground whitespace-nowrap"
+        className="text-[#68788e] hover:bg-[#25cac5] py-2 px-4 rounded-lg  font-medium hover:text-foreground whitespace-nowrap"
       >
         Log in
       </button>

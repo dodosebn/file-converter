@@ -3,14 +3,14 @@ import { FaGoogle } from "react-icons/fa";
 import { RiGithubFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { AccountIntro, LoginAltBtn } from "../ui";
+import { AccountIntro, LoginAltBtn } from "./ui";
 
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
     <div className="flex items-center justify-center bg-[#f0f6ff]">
-      <form className="w-[26rem]  rounded-xl bg-white p-6  shadow-xl space-y-6">
+      <form className="md:w-[26rem] max-w-md  rounded-xl bg-white p-6  shadow-xl space-y-6">
         <AccountIntro
           heading="Welcome Back"
           paragraph="Enter Your Credidentials to access your account
@@ -31,7 +31,10 @@ const LoginForm = () => {
         </div>
 
         <div className="space-y-1">
+          <div className="flex justify-between">
           <label className="text-sm font-medium text-gray-700">Password</label>
+                  <Link to='/forgot-password' className="text-sm font-medium text-[#18b4d8]">Forgot Password</Link>
+</div>
           <div className="relative">
             <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
             <input
@@ -79,11 +82,8 @@ const LoginForm = () => {
             </svg>
           </label>
 
-          <span className="cursor-pointer">
-           Remember me for 30 days
-          </span>
+          <span className="cursor-pointer">Remember me for 30 days</span>
         </label>
-
         <button
           type="button"
           className="w-full flex items-center justify-center gap-2 rounded-lg gradient-card py-3 text-white font-medium hover:opacity-90 transition"

@@ -5,7 +5,8 @@ const SignUpRightty = () => {
   return (
     <div className="hidden rounded-l-2xl lg:flex lg:w-1/2 min-h-screen gradient-card p-12 flex-col justify-between">
       <div className="flex items-center gap-3">
-        <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center">
+        <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center
+         justify-center">
           <FileImage className="w-6 h-6 text-white" />
         </div>
         <span className="text-2xl font-bold text-white">FileConvert</span>

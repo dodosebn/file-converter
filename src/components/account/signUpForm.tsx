@@ -3,14 +3,14 @@ import { FaGoogle } from "react-icons/fa";
 import { RiGithubFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { AccountIntro, LoginAltBtn } from "../ui";
+import { AccountIntro, LoginAltBtn } from "./ui";
 
 const SignUpForm = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
     <div className="flex items-center justify-center bg-[#f0f6ff]">
-      <form className="w-[26rem]  rounded-xl bg-white p-6  shadow-xl space-y-6">
+      <form className="md:w-[26rem] max-w-md  rounded-xl bg-white p-6  shadow-xl space-y-6">
         <AccountIntro
           heading="Create an account"
           paragraph="Get started with 20 free conversions"
@@ -68,6 +68,7 @@ const SignUpForm = () => {
         </div>
 
         <label className="flex items-start gap-2 text-sm text-gray-600">
+        
           <label className="relative inline-flex items-center justify-center">
             <input
               type="checkbox"

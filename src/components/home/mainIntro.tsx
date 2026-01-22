@@ -19,14 +19,19 @@ const MainIntro = () => {
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
             <Link to="/home">
-              <button className="gradient-card flex items-center hover:opacity-90 gap-2 
-              text-lg px-6 py-3 text-[#fafdfe] rounded-lg ">
+              <button
+                className="gradient-card flex items-center hover:opacity-90 gap-2 
+              text-lg px-7 py-2 text-[#fafdfe] rounded-lg "
+              >
                 Try as Guest
                 <ArrowRight className="w-4 h-4" />
               </button>
             </Link>
             <Link to="/signup">
-              <button className="text-lg px-6 py-3 border border-[#d3d3d3] transition-all hover:gradient-card rounded-lg">Create Account</button>
+              <button className="text-lg px-7 py-2 border border-[#d3d3d3]
+               transition-all hover:gradient-card rounded-lg">
+                Create Account
+              </button>
             </Link>
           </div>
           <p className="text-sm text-[#68788e]  pt-2">
