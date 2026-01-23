@@ -6,7 +6,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const showNavbar = !hideNavbarPaths.includes(location.pathname);
   return (
     <>
-      <div >        {showNavbar && <Navbar />}
+      <div className="bg-[#f0f6ff]  ">        {showNavbar && <Navbar />}
         <main>{children}</main>
       </div>{" "}
     </>

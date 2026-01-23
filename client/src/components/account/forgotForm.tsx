@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const ForgotForm = () => {
   return (
-        <div className="flex items-center justify-center bg-[#f0f6ff]">
+        <div className="flex items-center justify-center bg-[#f0f6ff] px-4 ">
     <form className="md:w-[26rem] max-w-md  rounded-xl bg-white p-6 shadow-xl space-y-6">
       <AccountIntro
         heading="Forgot Password?"
