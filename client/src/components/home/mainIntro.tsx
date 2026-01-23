@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const MainIntro = () => {
   return (
     <div>
-      <section className="container bg-[#f0f6ff] mx-auto px-6 py-24 text-center">
+      <section className=" bg-[#f0f6ff] mx-auto px-6 py-24 text-center">
         <div className="max-w-3xl mx-auto space-y-6">
           <h1 className="text-5xl font-bold text-foreground leading-tight">
             Convert Any File Format{" "}
