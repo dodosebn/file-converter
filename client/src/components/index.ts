@@ -1,2 +1,3 @@
 import Layout from "./layout";
-export {Layout};
+import Logo from "./logo";
+export {Layout, Logo};

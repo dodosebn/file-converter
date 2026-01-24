@@ -1,6 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { Logo } from "../ui";
+import { Logo } from "..";
 const Navbar = () => {
   const Navigate = useNavigate();
   const handleClick = (url: string) => {

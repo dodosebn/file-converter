@@ -1,16 +1,25 @@
 import { Eye, EyeOff, Lock, Mail, MoveRight, User } from "lucide-react";
 import { FaGoogle } from "react-icons/fa";
 import { RiGithubFill } from "react-icons/ri";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { AccountIntro, LoginAltBtn } from "./ui";
 
 const SignUpForm = () => {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    // later: validation + API call
+    navigate("/in/home");
+  };
 
   return (
     <div className="flex items-center justify-center bg-[#f0f6ff] px-4 ">
-      <form className="md:w-[26rem] max-w-md  rounded-xl bg-white p-6  shadow-xl space-y-6">
+      <form   onSubmit={handleSubmit}
+className="md:w-[26rem] max-w-md  rounded-xl bg-white p-6  shadow-xl space-y-6">
         <AccountIntro
           heading="Create an account"
           paragraph="Get started with 20 free conversions"
@@ -104,7 +113,8 @@ const SignUpForm = () => {
         </label>
 
         <button
-          type="button"
+        // onClick={() => handleSubmit('/home')}
+          type="submit"
           className="w-full flex items-center justify-center gap-2 rounded-lg gradient-card py-3 text-white font-medium hover:opacity-90 transition"
         >
           Create account
