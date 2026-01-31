@@ -1,4 +1,4 @@
-import { SignUpForm, SignUpRightty } from "../components/account";
+import { SignUpForm, SignUpRightty } from "../components/auth";
 
 const signUpPage = () => {
   return (

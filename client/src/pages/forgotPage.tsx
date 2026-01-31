@@ -1,4 +1,4 @@
-import { ForgotForm, SignUpRightty } from "../components/account";
+import { ForgotForm, SignUpRightty } from "../components/auth";
 
 const ForgotPage = () => {
   return (

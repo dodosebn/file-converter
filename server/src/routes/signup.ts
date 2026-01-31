@@ -34,3 +34,4 @@ router.post('/signup', async (req: Request, res: Response) => {
     res.status(500).send('Server error');
   }
 });
+export default router;

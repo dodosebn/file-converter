@@ -1,4 +1,4 @@
-import { LoginForm, SignUpRightty } from "../components/account";
+import { LoginForm, SignUpRightty } from "../components/auth";
 
 const LoginPage = () => {
   return (

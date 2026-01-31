@@ -4,7 +4,7 @@ import { RiGithubFill } from "react-icons/ri";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { AccountIntro, LoginAltBtn } from "./ui";
-
+import { googleSignin, githubSignin } from "../../../../server/src/config/auth";
 const SignUpForm = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
@@ -127,16 +127,17 @@ className="md:w-[26rem] max-w-md  rounded-xl bg-white p-6  shadow-xl space-y-6">
           <span className="h-px flex-1 bg-gray-200" />
         </div>
 
-        <div className="flex gap-3">
-          <LoginAltBtn>
-            <FaGoogle className="w-5 h-5" />
-            Google
-          </LoginAltBtn>
+        <div className="flex gap-3" onClick={googleSignin}>
+    <LoginAltBtn onClickBtn={() => googleSignin}>
+  <FaGoogle className="w-5 h-5" />
+  Google
+</LoginAltBtn>
 
-          <LoginAltBtn>
-            <RiGithubFill className="w-5 h-5" />
-            GitHub
-          </LoginAltBtn>
+<LoginAltBtn onClickBtn={() => githubSignin}>
+  <RiGithubFill className="w-5 h-5" />
+  GitHub
+</LoginAltBtn>
+
         </div>
 
         <p className="text-center text-sm text-gray-600">

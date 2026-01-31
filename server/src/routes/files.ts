@@ -84,3 +84,5 @@ router.delete('/file/:id', auth, async (req: AuthRequest, res: Response) => {
     res.status(500).send('Server error');
   }
 });
+
+export default router;

@@ -4,6 +4,7 @@ import { RiGithubFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { AccountIntro, LoginAltBtn } from "./ui";
+import { githubSignin, googleSignin } from "../../../../server/src/config/auth";
 
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -99,12 +100,12 @@ const LoginForm = () => {
         </div>
 
         <div className="flex gap-3">
-          <LoginAltBtn>
+    <LoginAltBtn onClickBtn={() => googleSignin}>
             <FaGoogle className="w-5 h-5" />
             Google
           </LoginAltBtn>
 
-          <LoginAltBtn>
+<LoginAltBtn onClickBtn={() => githubSignin}>
             <RiGithubFill className="w-5 h-5" />
             GitHub
           </LoginAltBtn>

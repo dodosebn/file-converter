@@ -7,6 +7,7 @@ import { JWT_SECRET } from '../service/auth';
 
 const router = Router();
 router.post('/login', async (req: Request, res: Response) => {
+  // res.send('How far login dey active');
   const { email, password } = req.body;
   {}
   if (!email || !password) return res.status(400).send('Missing fields');
@@ -22,3 +23,4 @@ router.post('/login', async (req: Request, res: Response) => {
   const token = jwt.sign({ id: user.id }, JWT_SECRET);
   res.json({ token, user });
 });
+export default router;

@@ -40,3 +40,22 @@ export const SideItems = [
     name: 'Dark mode'
   }
 ];
+
+export const convertibles = [
+  {
+    convert: 'DOCX',
+    quote: 'PDF'
+  },
+    {
+    base: 'XLSX',
+    quote: 'PDF'
+  },
+     {
+    base: 'JPG',
+    quote: 'PDF'
+  },
+    {
+    base: 'PDF',
+    quote: 'JPG'
+  }
+]
