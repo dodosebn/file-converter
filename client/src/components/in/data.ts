@@ -27,10 +27,7 @@ export const SideItems = [
     icon: CircleQuestionMark,
     name: 'Support Center'
   },
-  {
-    icon: CircleQuestionMark,
-    name: 'Support Center'
-  },
+
   {
     icon: LogOut,
     name: 'LogOut'
@@ -43,7 +40,7 @@ export const SideItems = [
 
 export const convertibles = [
   {
-    convert: 'DOCX',
+      base: 'DOC',
     quote: 'PDF'
   },
     {

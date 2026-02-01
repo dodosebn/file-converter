@@ -3,13 +3,11 @@ import { SideItems } from "../data";
 
 const Sidebar = () => {
   return (
-    <div className="bg-white h-screen rounded-xl p-6 border border-gray-200 shadow-sm">
-      {/* Logo with proper spacing */}
+    <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm">
       <div className="mb-10">
         <Logo />
       </div>
 
-      {/* Navigation items with sharp styling */}
       <nav>
         <ul className="space-y-1">
           {SideItems.map((item, index) => {
