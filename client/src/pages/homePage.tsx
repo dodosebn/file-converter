@@ -1,6 +1,6 @@
 import {
   Features,
-  Footer,
+  // Footer,
   MainIntro,
   SemiFooter,
 } from "../components/home";
@@ -11,7 +11,7 @@ const HomePage = () => {
       <MainIntro />
       <Features />
       <SemiFooter />
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };

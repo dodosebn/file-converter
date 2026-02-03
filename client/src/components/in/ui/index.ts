@@ -1,3 +1,5 @@
 import Sidebar from "./sidebar";
 import ConvertDropdown from "./convertDropDown";
-export {Sidebar, ConvertDropdown};
+import ConvertAlert from "./convertAlert";
+import RecommendedTools from "./recommendedTools";
+export {Sidebar, ConvertDropdown, ConvertAlert, RecommendedTools};

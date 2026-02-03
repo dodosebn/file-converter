@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom";
-import { Navbar } from "./home";
+import { Footer, Navbar } from "./home";
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
  const location = useLocation();
 
@@ -9,6 +9,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       <div className="bg-[#f0f6ff]  ">              {!showNavbar && <Navbar />}
 
         <main>{children}</main>
+        <Footer />
       </div>{" "}
     </>
   );

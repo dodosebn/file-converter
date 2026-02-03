@@ -1,13 +1,11 @@
 import { Download } from "lucide-react";
-import { ConvertDropdown } from "./ui";
+import { ConvertAlert, ConvertDropdown } from "./ui";
 
 const Uploader = () => {
   return (
     <section className="flex flex-col gap-8 bg-white rounded-xl p-4 sm:p-6 lg:p-8">
-      {/* Conversion selector */}
       <ConvertDropdown />
 
-      {/* Upload area */}
       <div className="flex justify-center">
         <div
           className="
@@ -50,6 +48,7 @@ const Uploader = () => {
           </span>
         </div>
       </div>
+      <ConvertAlert />
     </section>
   );
 };

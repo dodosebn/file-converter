@@ -1,0 +1,74 @@
+import { useState } from "react";
+import {
+  ArrowRight,
+  FileChartColumn,
+  FileImage,
+  FileText,
+} from "lucide-react";
+import ConverterModal from "./converterModal";
+
+const RecommendedTools = () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <section className="flex flex-col gap-6 bg-white  rounded-xl p-4  sm:p-6 lg:p-8">
+      <div className="flex items-center justify-between">
+        <h2 className="text-lg font-semibold text-gray-900">
+          Recommended Tools
+        </h2>
+        <button
+          type="button"
+                    onClick={() => setOpen(true)}
+          className="text-sm font-semibold text-gray-400 hover:text-gray-600"
+        >
+          View all
+        </button>
+      </div>
+
+      <div className="flex flex-col sm:flex-row gap-4">
+        <div className="border-2 w-full border-blue-400 rounded-xl p-4 flex items-center 
+        gap-4 bg-[#e6f5fc]  cursor-pointer transition">
+          <div className="flex items-center gap-2">
+            <FileImage className="w-5 h-5 text-blue-500" />
+            <ArrowRight className="w-4 h-4 text-gray-400" />
+            <FileText className="w-5 h-5 text-red-500" />
+          </div>
+          <div className="flex flex-col">
+            <h3 className="text-md font-semibold text-gray-900">
+              JPG to PNG
+            </h3>
+            <p className="text-sm text-gray-500">
+              Convert your JPG images to PNG format
+            </p>
+          </div>
+        </div>
+
+        <div className="border w-full rounded-xl p-4 flex items-center gap-4 
+        bg-white cursor-pointer transition hover:bg-gray-100">
+          <div className="flex items-center gap-2">
+            <FileText className="w-5 h-5 text-red-500" />
+            <ArrowRight className="w-4 h-4 text-gray-400" />
+            <FileChartColumn className="w-5 h-5 text-green-500" />
+          </div>
+
+          <div className="flex flex-col">
+            <h3 className="text-md font-semibold text-gray-900">
+              PDF to XLSX
+            </h3>
+            <p className="text-sm text-gray-500">
+              Convert your PDF documents to XLSX format
+            </p>
+          </div>
+        </div>
+      </div>
+
+        <ConverterModal
+        open={open}
+        onClose={() => setOpen(false)}
+        onSelect={() => {}}
+      />
+    </section>
+    
+  );
+};
+
+export default RecommendedTools;
