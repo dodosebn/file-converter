@@ -6,14 +6,23 @@ import {
   Moon,
   Settings,
   Share2,
-  Users
+  Users,
 } from "lucide-react";
-
-const handleThemeSwitch = () => {
-  console.log("Theme toggled");
+export type NavItem = {
+  icon: React.ComponentType;
+  name: string;
+  path: string;
 };
 
-export const SideItems = [
+export type ActionItem = {
+  icon: React.ComponentType;
+  name: string;
+  action: "toggle-theme" | "logout";
+};
+
+export type SideItem = NavItem | ActionItem;
+
+export const SideItems: SideItem[] = [
   {
     icon: LayoutGrid,
     name: "Home",
@@ -22,39 +31,40 @@ export const SideItems = [
   {
     icon: FileText,
     name: "All Files",
-    path: "/in/files",
+    path: "/in/home",
   },
   {
     icon: Share2,
     name: "Shared by You",
-    path: "/in/shared-by-you",
+    path: "/in/home",
   },
   {
     icon: Users,
     name: "Shared with You",
-    path: "/in/shared-with-you",
+    path: "/in/home",
   },
   {
     icon: Settings,
     name: "Settings",
-    path: "/in/settings",
+    path: "/in/home",
   },
   {
     icon: CircleQuestionMark,
     name: "Support Center",
-    path: "/in/support",
+    path: "/in/home",
   },
   {
     icon: LogOut,
     name: "Log Out",
-    path: "/in/logout",
+    action: "logout",
   },
   {
     icon: Moon,
     name: "Dark Mode",
-    action: handleThemeSwitch,
+    action: "toggle-theme", 
   },
 ];
+
 
 export const convertibles = [
   { base: "DOC", quote: "PDF" },
