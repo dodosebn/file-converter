@@ -1,18 +1,32 @@
+import { useState } from "react";
 import { Uploader } from "../components/in";
-import { RecommendedTools, Sidebar } from "../components/in/ui";
+import { MobileNav, RecommendedTools, Sidebar } from "../components/in/ui";
 
 const InHome = () => {
-  return (
-    <div className="bg-[#f0f6ff] px-6">
-      <div className="flex gap-6 py-4 items-start">
-        <div className="sticky top-4">
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
-        <Sidebar />
-</div>
-        <div className="max-w-7xl flex-1 mx-auto space-y-4">
+  return (
+    <div className="bg-[#f0f6ff] min-h-screen px-4 sm:px-6 py-3">
+      <MobileNav onMenuClick={() => setSidebarOpen(true)} />
+
+      {/* Mobile sidebar overlay */}
+      <Sidebar
+        mobile
+        open={sidebarOpen}
+        onClose={() => setSidebarOpen(false)}
+      />
+
+      <div className="flex gap-6 py-4 items-start">
+        {/* Desktop sidebar */}
+        <div className="hidden md:block md:sticky md:top-4">
+          <Sidebar />
+        </div>
+
+        {/* Main content */}
+        <main className="w-full max-w-7xl mx-auto space-y-4">
           <Uploader />
           <RecommendedTools />
-        </div>
+        </main>
       </div>
     </div>
   );

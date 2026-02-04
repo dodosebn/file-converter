@@ -25,12 +25,12 @@ const RecommendedTools = () => {
       </div>
 
       <div className="flex flex-col sm:flex-row gap-4">
-        <div className="border-2 w-full border-blue-400 rounded-xl p-4 flex items-center 
+        <div className="border-2 w-full border-blue-400 rounded-xl md:p-4 p-2 flex items-center 
         gap-4 bg-[#e6f5fc]  cursor-pointer transition">
-          <div className="flex items-center gap-2">
-            <FileImage className="w-5 h-5 text-blue-500" />
+          <div className="flex items-center md:gap-2 gap-1">
+            <FileImage className="w-6 h-6 text-blue-500" />
             <ArrowRight className="w-4 h-4 text-gray-400" />
-            <FileText className="w-5 h-5 text-red-500" />
+            <FileText className="w-6 h-6 text-red-500" />
           </div>
           <div className="flex flex-col">
             <h3 className="text-md font-semibold text-gray-900">
@@ -44,10 +44,10 @@ const RecommendedTools = () => {
 
         <div className="border w-full rounded-xl p-4 flex items-center gap-4 
         bg-white cursor-pointer transition hover:bg-gray-100">
-          <div className="flex items-center gap-2">
-            <FileText className="w-5 h-5 text-red-500" />
+          <div className="flex items-center md:gap-2 gap-1">
+            <FileText className="w-6 h-6 text-red-500" />
             <ArrowRight className="w-4 h-4 text-gray-400" />
-            <FileChartColumn className="w-5 h-5 text-green-500" />
+            <FileChartColumn className="w-6 h-6 text-green-500" />
           </div>
 
           <div className="flex flex-col">
