@@ -24,7 +24,7 @@ let targetType;
   targetType = 'pdf';
 } 
 else if (fileType === 'pdf') {
-  targetType = req.body.convertTo; // docx or xlsx
+  targetType = req.body.convertTo; 
 } 
 else if (['jpg', 'png', 'jpeg'].includes(fileType)) {
   targetType = 'pdf';
