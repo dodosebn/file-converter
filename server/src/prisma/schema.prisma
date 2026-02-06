@@ -12,16 +12,28 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
 model User {
   id Int @id @default(autoincrement())
   email String @unique
   name String
   password String?
- googleId String?
- githubId String?
-  FilesToConvert FilesToConvert[]
+
+  googleId String? @unique
+  githubId String? @unique
+
+  resetPasswordToken   String?
+  resetPasswordExpires DateTime?
+
+  files FilesToConvert[]
+
+  createdAt DateTime @default(now())
+updatedAt DateTime @updatedAt @default(now())
+
+  @@index([resetPasswordToken])
 }
-model FilesToConvert{
+
+model FilesToConvert {
   id Int @id @default(autoincrement())
   user User @relation(fields: [userId], references: [id])
   userId Int
@@ -29,7 +41,6 @@ model FilesToConvert{
   storedName String
   fileType String
   targetType String
-  createdAt DateTime @default(now())
   status String @default("pending")
-
+  createdAt DateTime @default(now())
 }

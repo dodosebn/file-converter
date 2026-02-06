@@ -1,25 +1,45 @@
-import { Eye, EyeOff, Lock, Mail, MoveRight, User } from "lucide-react";
+import {
+  Eye,
+  EyeOff,
+  Lock,
+  Mail,
+  MoveRight,
+  User,
+} from "lucide-react";
 import { FaGoogle } from "react-icons/fa";
 import { RiGithubFill } from "react-icons/ri";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { AccountIntro, LoginAltBtn } from "./ui";
 import { googleSignin, githubSignin } from "../../../../server/src/config/auth";
+import { useAuth } from "../../context/authContext";
+
 const SignUpForm = () => {
   const navigate = useNavigate();
-  const [showPassword, setShowPassword] = useState(false);
+  const { signup, loading, error } = useAuth();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const [showPassword, setShowPassword] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // later: validation + API call
-    navigate("/in/home");
+    try {
+      await signup(name, email, password);
+      navigate("/in/home");
+    } catch (err) {
+      console.error("Signup error:", err);
+    }
   };
 
   return (
-    <div className="flex items-center justify-center bg-[#f0f6ff] px-4 ">
-      <form   onSubmit={handleSubmit}
-className="md:w-[26rem] max-w-md  rounded-xl bg-white p-6  shadow-xl space-y-6">
+    <div className="flex items-center justify-center bg-[#f0f6ff] px-4">
+      <form
+        onSubmit={handleSubmit}
+        className="md:w-[26rem] max-w-md rounded-xl bg-white p-6 shadow-xl space-y-6"
+      >
         <AccountIntro
           heading="Create an account"
           paragraph="Get started with 20 free conversions"
@@ -31,8 +51,11 @@ className="md:w-[26rem] max-w-md  rounded-xl bg-white p-6  shadow-xl space-y-6">
             <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
             <input
               type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               placeholder="John Doe"
-              className="w-full rounded-lg border bg-[#f0f6ff] border-gray-300 
+              required
+              className="w-full rounded-lg border bg-[#f0f6ff] border-gray-300
               pl-10 pr-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#18b4d8]"
             />
           </div>
@@ -44,8 +67,11 @@ className="md:w-[26rem] max-w-md  rounded-xl bg-white p-6  shadow-xl space-y-6">
             <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
             <input
               type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="you@example.com"
-              className="w-full rounded-lg border bg-[#f0f6ff] border-gray-300 
+              required
+              className="w-full rounded-lg border bg-[#f0f6ff] border-gray-300
               pl-10 pr-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#18b4d8]"
             />
           </div>
@@ -57,67 +83,33 @@ className="md:w-[26rem] max-w-md  rounded-xl bg-white p-6  shadow-xl space-y-6">
             <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
             <input
               type={showPassword ? "text" : "password"}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••"
+              required
               className="w-full rounded-lg border bg-[#f0f6ff] border-gray-300
-               pl-10 pr-10 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#18b4d8]"
+              pl-10 pr-10 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#18b4d8]"
             />
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400
-               hover:text-gray-600"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
             >
-              {showPassword ? (
-                <EyeOff className="w-4 h-4" />
-              ) : (
-                <Eye className="w-4 h-4" />
-              )}
+              {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
             </button>
           </div>
         </div>
 
-        <label className="flex items-start gap-2 text-sm text-gray-600">
-        
-          <label className="relative inline-flex items-center justify-center">
-            <input
-              type="checkbox"
-              className="
-      peer h-5 w-5 appearance-none rounded-full
-      border border-blue-400
-      checked:bg-[#18b4d8] checked:border-[#18b4d8]
-    "
-            />
-            <svg
-              className="pointer-events-none absolute h-3 w-3 text-white opacity-0 peer-checked:opacity-100"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fillRule="evenodd"
-                d="M16.707 5.293a1 1 0 00-1.414 0L8 12.586 4.707 9.293a1 1 0 00-1.414 1.414l4 4a1 1 0 001.414 0l8-8a1 1 0 000-1.414z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </label>
-
-          <span>
-            I agree to the{" "}
-            <span className="text-[#18b4d8] hover:underline cursor-pointer">
-              Terms of Service
-            </span>{" "}
-            and{" "}
-            <span className="text-[#18b4d8] hover:underline cursor-pointer">
-              Privacy Policy
-            </span>
-          </span>
-        </label>
+        {error && (
+          <p className="text-sm text-red-500 text-center">{error}</p>
+        )}
 
         <button
-        // onClick={() => handleSubmit('/home')}
           type="submit"
-          className="w-full flex items-center justify-center gap-2 rounded-lg gradient-card py-3 text-white font-medium hover:opacity-90 transition"
+          disabled={loading}
+          className="w-full flex items-center justify-center gap-2 rounded-lg gradient-card py-3 text-white font-medium hover:opacity-90 transition disabled:opacity-60"
         >
-          Create account
+          {loading ? "Creating account..." : "Create account"}
           <MoveRight className="w-4 h-4" />
         </button>
 
@@ -127,17 +119,16 @@ className="md:w-[26rem] max-w-md  rounded-xl bg-white p-6  shadow-xl space-y-6">
           <span className="h-px flex-1 bg-gray-200" />
         </div>
 
-        <div className="flex gap-3" onClick={googleSignin}>
-    <LoginAltBtn onClickBtn={() => googleSignin}>
-  <FaGoogle className="w-5 h-5" />
-  Google
-</LoginAltBtn>
+        <div className="flex gap-3">
+          <LoginAltBtn onClickBtn={googleSignin}>
+            <FaGoogle className="w-5 h-5" />
+            Google
+          </LoginAltBtn>
 
-<LoginAltBtn onClickBtn={() => githubSignin}>
-  <RiGithubFill className="w-5 h-5" />
-  GitHub
-</LoginAltBtn>
-
+          <LoginAltBtn onClickBtn={githubSignin}>
+            <RiGithubFill className="w-5 h-5" />
+            GitHub
+          </LoginAltBtn>
         </div>
 
         <p className="text-center text-sm text-gray-600">

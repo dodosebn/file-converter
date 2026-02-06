@@ -77,7 +77,11 @@ export const UserScalarFieldEnum = {
   name: 'name',
   password: 'password',
   googleId: 'googleId',
-  githubId: 'githubId'
+  githubId: 'githubId',
+  resetPasswordToken: 'resetPasswordToken',
+  resetPasswordExpires: 'resetPasswordExpires',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -90,8 +94,8 @@ export const FilesToConvertScalarFieldEnum = {
   storedName: 'storedName',
   fileType: 'fileType',
   targetType: 'targetType',
-  createdAt: 'createdAt',
-  status: 'status'
+  status: 'status',
+  createdAt: 'createdAt'
 } as const
 
 export type FilesToConvertScalarFieldEnum = (typeof FilesToConvertScalarFieldEnum)[keyof typeof FilesToConvertScalarFieldEnum]

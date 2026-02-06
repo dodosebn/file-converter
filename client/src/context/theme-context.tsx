@@ -1,12 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useEffect, useState } from "react";
+import type { Theme, ThemeContextType } from "./types/theme";
 
-type Theme = "light" | "dark";
-
-type ThemeContextType = {
-  theme: Theme;
-  toggleTheme: () => void;
-};
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 

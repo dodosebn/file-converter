@@ -41,6 +41,10 @@ export type UserMinAggregateOutputType = {
   password: string | null
   googleId: string | null
   githubId: string | null
+  resetPasswordToken: string | null
+  resetPasswordExpires: Date | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type UserMaxAggregateOutputType = {
@@ -50,6 +54,10 @@ export type UserMaxAggregateOutputType = {
   password: string | null
   googleId: string | null
   githubId: string | null
+  resetPasswordToken: string | null
+  resetPasswordExpires: Date | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type UserCountAggregateOutputType = {
@@ -59,6 +67,10 @@ export type UserCountAggregateOutputType = {
   password: number
   googleId: number
   githubId: number
+  resetPasswordToken: number
+  resetPasswordExpires: number
+  createdAt: number
+  updatedAt: number
   _all: number
 }
 
@@ -78,6 +90,10 @@ export type UserMinAggregateInputType = {
   password?: true
   googleId?: true
   githubId?: true
+  resetPasswordToken?: true
+  resetPasswordExpires?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type UserMaxAggregateInputType = {
@@ -87,6 +103,10 @@ export type UserMaxAggregateInputType = {
   password?: true
   googleId?: true
   githubId?: true
+  resetPasswordToken?: true
+  resetPasswordExpires?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type UserCountAggregateInputType = {
@@ -96,6 +116,10 @@ export type UserCountAggregateInputType = {
   password?: true
   googleId?: true
   githubId?: true
+  resetPasswordToken?: true
+  resetPasswordExpires?: true
+  createdAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -192,6 +216,10 @@ export type UserGroupByOutputType = {
   password: string | null
   googleId: string | null
   githubId: string | null
+  resetPasswordToken: string | null
+  resetPasswordExpires: Date | null
+  createdAt: Date
+  updatedAt: Date
   _count: UserCountAggregateOutputType | null
   _avg: UserAvgAggregateOutputType | null
   _sum: UserSumAggregateOutputType | null
@@ -224,7 +252,11 @@ export type UserWhereInput = {
   password?: Prisma.StringNullableFilter<"User"> | string | null
   googleId?: Prisma.StringNullableFilter<"User"> | string | null
   githubId?: Prisma.StringNullableFilter<"User"> | string | null
-  FilesToConvert?: Prisma.FilesToConvertListRelationFilter
+  resetPasswordToken?: Prisma.StringNullableFilter<"User"> | string | null
+  resetPasswordExpires?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  files?: Prisma.FilesToConvertListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -234,21 +266,29 @@ export type UserOrderByWithRelationInput = {
   password?: Prisma.SortOrderInput | Prisma.SortOrder
   googleId?: Prisma.SortOrderInput | Prisma.SortOrder
   githubId?: Prisma.SortOrderInput | Prisma.SortOrder
-  FilesToConvert?: Prisma.FilesToConvertOrderByRelationAggregateInput
+  resetPasswordToken?: Prisma.SortOrderInput | Prisma.SortOrder
+  resetPasswordExpires?: Prisma.SortOrderInput | Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+  files?: Prisma.FilesToConvertOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
   id?: number
   email?: string
+  googleId?: string
+  githubId?: string
   AND?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   OR?: Prisma.UserWhereInput[]
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   name?: Prisma.StringFilter<"User"> | string
   password?: Prisma.StringNullableFilter<"User"> | string | null
-  googleId?: Prisma.StringNullableFilter<"User"> | string | null
-  githubId?: Prisma.StringNullableFilter<"User"> | string | null
-  FilesToConvert?: Prisma.FilesToConvertListRelationFilter
-}, "id" | "email">
+  resetPasswordToken?: Prisma.StringNullableFilter<"User"> | string | null
+  resetPasswordExpires?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  files?: Prisma.FilesToConvertListRelationFilter
+}, "id" | "email" | "googleId" | "githubId">
 
 export type UserOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -257,6 +297,10 @@ export type UserOrderByWithAggregationInput = {
   password?: Prisma.SortOrderInput | Prisma.SortOrder
   googleId?: Prisma.SortOrderInput | Prisma.SortOrder
   githubId?: Prisma.SortOrderInput | Prisma.SortOrder
+  resetPasswordToken?: Prisma.SortOrderInput | Prisma.SortOrder
+  resetPasswordExpires?: Prisma.SortOrderInput | Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _avg?: Prisma.UserAvgOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
@@ -274,6 +318,10 @@ export type UserScalarWhereWithAggregatesInput = {
   password?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   googleId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   githubId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  resetPasswordToken?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  resetPasswordExpires?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
 }
 
 export type UserCreateInput = {
@@ -282,7 +330,11 @@ export type UserCreateInput = {
   password?: string | null
   googleId?: string | null
   githubId?: string | null
-  FilesToConvert?: Prisma.FilesToConvertCreateNestedManyWithoutUserInput
+  resetPasswordToken?: string | null
+  resetPasswordExpires?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  files?: Prisma.FilesToConvertCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -292,7 +344,11 @@ export type UserUncheckedCreateInput = {
   password?: string | null
   googleId?: string | null
   githubId?: string | null
-  FilesToConvert?: Prisma.FilesToConvertUncheckedCreateNestedManyWithoutUserInput
+  resetPasswordToken?: string | null
+  resetPasswordExpires?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  files?: Prisma.FilesToConvertUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -301,7 +357,11 @@ export type UserUpdateInput = {
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   githubId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  FilesToConvert?: Prisma.FilesToConvertUpdateManyWithoutUserNestedInput
+  resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetPasswordExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  files?: Prisma.FilesToConvertUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -311,7 +371,11 @@ export type UserUncheckedUpdateInput = {
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   githubId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  FilesToConvert?: Prisma.FilesToConvertUncheckedUpdateManyWithoutUserNestedInput
+  resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetPasswordExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  files?: Prisma.FilesToConvertUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -321,6 +385,10 @@ export type UserCreateManyInput = {
   password?: string | null
   googleId?: string | null
   githubId?: string | null
+  resetPasswordToken?: string | null
+  resetPasswordExpires?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type UserUpdateManyMutationInput = {
@@ -329,6 +397,10 @@ export type UserUpdateManyMutationInput = {
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   githubId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetPasswordExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type UserUncheckedUpdateManyInput = {
@@ -338,6 +410,10 @@ export type UserUncheckedUpdateManyInput = {
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   githubId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetPasswordExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type UserCountOrderByAggregateInput = {
@@ -347,6 +423,10 @@ export type UserCountOrderByAggregateInput = {
   password?: Prisma.SortOrder
   googleId?: Prisma.SortOrder
   githubId?: Prisma.SortOrder
+  resetPasswordToken?: Prisma.SortOrder
+  resetPasswordExpires?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type UserAvgOrderByAggregateInput = {
@@ -360,6 +440,10 @@ export type UserMaxOrderByAggregateInput = {
   password?: Prisma.SortOrder
   googleId?: Prisma.SortOrder
   githubId?: Prisma.SortOrder
+  resetPasswordToken?: Prisma.SortOrder
+  resetPasswordExpires?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type UserMinOrderByAggregateInput = {
@@ -369,6 +453,10 @@ export type UserMinOrderByAggregateInput = {
   password?: Prisma.SortOrder
   googleId?: Prisma.SortOrder
   githubId?: Prisma.SortOrder
+  resetPasswordToken?: Prisma.SortOrder
+  resetPasswordExpires?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type UserSumOrderByAggregateInput = {
@@ -388,6 +476,14 @@ export type NullableStringFieldUpdateOperationsInput = {
   set?: string | null
 }
 
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
+}
+
+export type DateTimeFieldUpdateOperationsInput = {
+  set?: Date | string
+}
+
 export type IntFieldUpdateOperationsInput = {
   set?: number
   increment?: number
@@ -396,68 +492,84 @@ export type IntFieldUpdateOperationsInput = {
   divide?: number
 }
 
-export type UserCreateNestedOneWithoutFilesToConvertInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutFilesToConvertInput, Prisma.UserUncheckedCreateWithoutFilesToConvertInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFilesToConvertInput
+export type UserCreateNestedOneWithoutFilesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutFilesInput, Prisma.UserUncheckedCreateWithoutFilesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFilesInput
   connect?: Prisma.UserWhereUniqueInput
 }
 
-export type UserUpdateOneRequiredWithoutFilesToConvertNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutFilesToConvertInput, Prisma.UserUncheckedCreateWithoutFilesToConvertInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFilesToConvertInput
-  upsert?: Prisma.UserUpsertWithoutFilesToConvertInput
+export type UserUpdateOneRequiredWithoutFilesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutFilesInput, Prisma.UserUncheckedCreateWithoutFilesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFilesInput
+  upsert?: Prisma.UserUpsertWithoutFilesInput
   connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutFilesToConvertInput, Prisma.UserUpdateWithoutFilesToConvertInput>, Prisma.UserUncheckedUpdateWithoutFilesToConvertInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutFilesInput, Prisma.UserUpdateWithoutFilesInput>, Prisma.UserUncheckedUpdateWithoutFilesInput>
 }
 
-export type UserCreateWithoutFilesToConvertInput = {
+export type UserCreateWithoutFilesInput = {
   email: string
   name: string
   password?: string | null
   googleId?: string | null
   githubId?: string | null
+  resetPasswordToken?: string | null
+  resetPasswordExpires?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
-export type UserUncheckedCreateWithoutFilesToConvertInput = {
+export type UserUncheckedCreateWithoutFilesInput = {
   id?: number
   email: string
   name: string
   password?: string | null
   googleId?: string | null
   githubId?: string | null
+  resetPasswordToken?: string | null
+  resetPasswordExpires?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
-export type UserCreateOrConnectWithoutFilesToConvertInput = {
+export type UserCreateOrConnectWithoutFilesInput = {
   where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutFilesToConvertInput, Prisma.UserUncheckedCreateWithoutFilesToConvertInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutFilesInput, Prisma.UserUncheckedCreateWithoutFilesInput>
 }
 
-export type UserUpsertWithoutFilesToConvertInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutFilesToConvertInput, Prisma.UserUncheckedUpdateWithoutFilesToConvertInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutFilesToConvertInput, Prisma.UserUncheckedCreateWithoutFilesToConvertInput>
+export type UserUpsertWithoutFilesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutFilesInput, Prisma.UserUncheckedUpdateWithoutFilesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutFilesInput, Prisma.UserUncheckedCreateWithoutFilesInput>
   where?: Prisma.UserWhereInput
 }
 
-export type UserUpdateToOneWithWhereWithoutFilesToConvertInput = {
+export type UserUpdateToOneWithWhereWithoutFilesInput = {
   where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutFilesToConvertInput, Prisma.UserUncheckedUpdateWithoutFilesToConvertInput>
+  data: Prisma.XOR<Prisma.UserUpdateWithoutFilesInput, Prisma.UserUncheckedUpdateWithoutFilesInput>
 }
 
-export type UserUpdateWithoutFilesToConvertInput = {
+export type UserUpdateWithoutFilesInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   githubId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetPasswordExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type UserUncheckedUpdateWithoutFilesToConvertInput = {
+export type UserUncheckedUpdateWithoutFilesInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   githubId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetPasswordToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetPasswordExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -466,11 +578,11 @@ export type UserUncheckedUpdateWithoutFilesToConvertInput = {
  */
 
 export type UserCountOutputType = {
-  FilesToConvert: number
+  files: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  FilesToConvert?: boolean | UserCountOutputTypeCountFilesToConvertArgs
+  files?: boolean | UserCountOutputTypeCountFilesArgs
 }
 
 /**
@@ -486,7 +598,7 @@ export type UserCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensi
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountFilesToConvertArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type UserCountOutputTypeCountFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.FilesToConvertWhereInput
 }
 
@@ -498,7 +610,11 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   password?: boolean
   googleId?: boolean
   githubId?: boolean
-  FilesToConvert?: boolean | Prisma.User$FilesToConvertArgs<ExtArgs>
+  resetPasswordToken?: boolean
+  resetPasswordExpires?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
+  files?: boolean | Prisma.User$filesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -509,6 +625,10 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   password?: boolean
   googleId?: boolean
   githubId?: boolean
+  resetPasswordToken?: boolean
+  resetPasswordExpires?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -518,6 +638,10 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   password?: boolean
   googleId?: boolean
   githubId?: boolean
+  resetPasswordToken?: boolean
+  resetPasswordExpires?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectScalar = {
@@ -527,11 +651,15 @@ export type UserSelectScalar = {
   password?: boolean
   googleId?: boolean
   githubId?: boolean
+  resetPasswordToken?: boolean
+  resetPasswordExpires?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "name" | "password" | "googleId" | "githubId", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "name" | "password" | "googleId" | "githubId" | "resetPasswordToken" | "resetPasswordExpires" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  FilesToConvert?: boolean | Prisma.User$FilesToConvertArgs<ExtArgs>
+  files?: boolean | Prisma.User$filesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -540,7 +668,7 @@ export type UserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "User"
   objects: {
-    FilesToConvert: Prisma.$FilesToConvertPayload<ExtArgs>[]
+    files: Prisma.$FilesToConvertPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -549,6 +677,10 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     password: string | null
     googleId: string | null
     githubId: string | null
+    resetPasswordToken: string | null
+    resetPasswordExpires: Date | null
+    createdAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["user"]>
   composites: {}
 }
@@ -943,7 +1075,7 @@ readonly fields: UserFieldRefs;
  */
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  FilesToConvert<T extends Prisma.User$FilesToConvertArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$FilesToConvertArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FilesToConvertPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  files<T extends Prisma.User$filesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$filesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FilesToConvertPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -979,6 +1111,10 @@ export interface UserFieldRefs {
   readonly password: Prisma.FieldRef<"User", 'String'>
   readonly googleId: Prisma.FieldRef<"User", 'String'>
   readonly githubId: Prisma.FieldRef<"User", 'String'>
+  readonly resetPasswordToken: Prisma.FieldRef<"User", 'String'>
+  readonly resetPasswordExpires: Prisma.FieldRef<"User", 'DateTime'>
+  readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
 }
     
 
@@ -1367,9 +1503,9 @@ export type UserDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
 }
 
 /**
- * User.FilesToConvert
+ * User.files
  */
-export type User$FilesToConvertArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type User$filesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the FilesToConvert
    */

@@ -93,7 +93,11 @@ exports.UserScalarFieldEnum = {
     name: 'name',
     password: 'password',
     googleId: 'googleId',
-    githubId: 'githubId'
+    githubId: 'githubId',
+    resetPasswordToken: 'resetPasswordToken',
+    resetPasswordExpires: 'resetPasswordExpires',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
 };
 exports.FilesToConvertScalarFieldEnum = {
     id: 'id',
@@ -102,8 +106,8 @@ exports.FilesToConvertScalarFieldEnum = {
     storedName: 'storedName',
     fileType: 'fileType',
     targetType: 'targetType',
-    createdAt: 'createdAt',
-    status: 'status'
+    status: 'status',
+    createdAt: 'createdAt'
 };
 exports.SortOrder = {
     asc: 'asc',

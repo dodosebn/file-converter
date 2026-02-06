@@ -43,8 +43,8 @@ export type FilesToConvertMinAggregateOutputType = {
   storedName: string | null
   fileType: string | null
   targetType: string | null
-  createdAt: Date | null
   status: string | null
+  createdAt: Date | null
 }
 
 export type FilesToConvertMaxAggregateOutputType = {
@@ -54,8 +54,8 @@ export type FilesToConvertMaxAggregateOutputType = {
   storedName: string | null
   fileType: string | null
   targetType: string | null
-  createdAt: Date | null
   status: string | null
+  createdAt: Date | null
 }
 
 export type FilesToConvertCountAggregateOutputType = {
@@ -65,8 +65,8 @@ export type FilesToConvertCountAggregateOutputType = {
   storedName: number
   fileType: number
   targetType: number
-  createdAt: number
   status: number
+  createdAt: number
   _all: number
 }
 
@@ -88,8 +88,8 @@ export type FilesToConvertMinAggregateInputType = {
   storedName?: true
   fileType?: true
   targetType?: true
-  createdAt?: true
   status?: true
+  createdAt?: true
 }
 
 export type FilesToConvertMaxAggregateInputType = {
@@ -99,8 +99,8 @@ export type FilesToConvertMaxAggregateInputType = {
   storedName?: true
   fileType?: true
   targetType?: true
-  createdAt?: true
   status?: true
+  createdAt?: true
 }
 
 export type FilesToConvertCountAggregateInputType = {
@@ -110,8 +110,8 @@ export type FilesToConvertCountAggregateInputType = {
   storedName?: true
   fileType?: true
   targetType?: true
-  createdAt?: true
   status?: true
+  createdAt?: true
   _all?: true
 }
 
@@ -208,8 +208,8 @@ export type FilesToConvertGroupByOutputType = {
   storedName: string
   fileType: string
   targetType: string
-  createdAt: Date
   status: string
+  createdAt: Date
   _count: FilesToConvertCountAggregateOutputType | null
   _avg: FilesToConvertAvgAggregateOutputType | null
   _sum: FilesToConvertSumAggregateOutputType | null
@@ -242,8 +242,8 @@ export type FilesToConvertWhereInput = {
   storedName?: Prisma.StringFilter<"FilesToConvert"> | string
   fileType?: Prisma.StringFilter<"FilesToConvert"> | string
   targetType?: Prisma.StringFilter<"FilesToConvert"> | string
-  createdAt?: Prisma.DateTimeFilter<"FilesToConvert"> | Date | string
   status?: Prisma.StringFilter<"FilesToConvert"> | string
+  createdAt?: Prisma.DateTimeFilter<"FilesToConvert"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
@@ -254,8 +254,8 @@ export type FilesToConvertOrderByWithRelationInput = {
   storedName?: Prisma.SortOrder
   fileType?: Prisma.SortOrder
   targetType?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
 }
 
@@ -269,8 +269,8 @@ export type FilesToConvertWhereUniqueInput = Prisma.AtLeast<{
   storedName?: Prisma.StringFilter<"FilesToConvert"> | string
   fileType?: Prisma.StringFilter<"FilesToConvert"> | string
   targetType?: Prisma.StringFilter<"FilesToConvert"> | string
-  createdAt?: Prisma.DateTimeFilter<"FilesToConvert"> | Date | string
   status?: Prisma.StringFilter<"FilesToConvert"> | string
+  createdAt?: Prisma.DateTimeFilter<"FilesToConvert"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id">
 
@@ -281,8 +281,8 @@ export type FilesToConvertOrderByWithAggregationInput = {
   storedName?: Prisma.SortOrder
   fileType?: Prisma.SortOrder
   targetType?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
   _count?: Prisma.FilesToConvertCountOrderByAggregateInput
   _avg?: Prisma.FilesToConvertAvgOrderByAggregateInput
   _max?: Prisma.FilesToConvertMaxOrderByAggregateInput
@@ -300,8 +300,8 @@ export type FilesToConvertScalarWhereWithAggregatesInput = {
   storedName?: Prisma.StringWithAggregatesFilter<"FilesToConvert"> | string
   fileType?: Prisma.StringWithAggregatesFilter<"FilesToConvert"> | string
   targetType?: Prisma.StringWithAggregatesFilter<"FilesToConvert"> | string
-  createdAt?: Prisma.DateTimeWithAggregatesFilter<"FilesToConvert"> | Date | string
   status?: Prisma.StringWithAggregatesFilter<"FilesToConvert"> | string
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<"FilesToConvert"> | Date | string
 }
 
 export type FilesToConvertCreateInput = {
@@ -309,9 +309,9 @@ export type FilesToConvertCreateInput = {
   storedName: string
   fileType: string
   targetType: string
-  createdAt?: Date | string
   status?: string
-  user: Prisma.UserCreateNestedOneWithoutFilesToConvertInput
+  createdAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutFilesInput
 }
 
 export type FilesToConvertUncheckedCreateInput = {
@@ -321,8 +321,8 @@ export type FilesToConvertUncheckedCreateInput = {
   storedName: string
   fileType: string
   targetType: string
-  createdAt?: Date | string
   status?: string
+  createdAt?: Date | string
 }
 
 export type FilesToConvertUpdateInput = {
@@ -330,9 +330,9 @@ export type FilesToConvertUpdateInput = {
   storedName?: Prisma.StringFieldUpdateOperationsInput | string
   fileType?: Prisma.StringFieldUpdateOperationsInput | string
   targetType?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
-  user?: Prisma.UserUpdateOneRequiredWithoutFilesToConvertNestedInput
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutFilesNestedInput
 }
 
 export type FilesToConvertUncheckedUpdateInput = {
@@ -342,8 +342,8 @@ export type FilesToConvertUncheckedUpdateInput = {
   storedName?: Prisma.StringFieldUpdateOperationsInput | string
   fileType?: Prisma.StringFieldUpdateOperationsInput | string
   targetType?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type FilesToConvertCreateManyInput = {
@@ -353,8 +353,8 @@ export type FilesToConvertCreateManyInput = {
   storedName: string
   fileType: string
   targetType: string
-  createdAt?: Date | string
   status?: string
+  createdAt?: Date | string
 }
 
 export type FilesToConvertUpdateManyMutationInput = {
@@ -362,8 +362,8 @@ export type FilesToConvertUpdateManyMutationInput = {
   storedName?: Prisma.StringFieldUpdateOperationsInput | string
   fileType?: Prisma.StringFieldUpdateOperationsInput | string
   targetType?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type FilesToConvertUncheckedUpdateManyInput = {
@@ -373,8 +373,8 @@ export type FilesToConvertUncheckedUpdateManyInput = {
   storedName?: Prisma.StringFieldUpdateOperationsInput | string
   fileType?: Prisma.StringFieldUpdateOperationsInput | string
   targetType?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type FilesToConvertListRelationFilter = {
@@ -394,8 +394,8 @@ export type FilesToConvertCountOrderByAggregateInput = {
   storedName?: Prisma.SortOrder
   fileType?: Prisma.SortOrder
   targetType?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
 }
 
 export type FilesToConvertAvgOrderByAggregateInput = {
@@ -410,8 +410,8 @@ export type FilesToConvertMaxOrderByAggregateInput = {
   storedName?: Prisma.SortOrder
   fileType?: Prisma.SortOrder
   targetType?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
 }
 
 export type FilesToConvertMinOrderByAggregateInput = {
@@ -421,8 +421,8 @@ export type FilesToConvertMinOrderByAggregateInput = {
   storedName?: Prisma.SortOrder
   fileType?: Prisma.SortOrder
   targetType?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
 }
 
 export type FilesToConvertSumOrderByAggregateInput = {
@@ -472,17 +472,13 @@ export type FilesToConvertUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.FilesToConvertScalarWhereInput | Prisma.FilesToConvertScalarWhereInput[]
 }
 
-export type DateTimeFieldUpdateOperationsInput = {
-  set?: Date | string
-}
-
 export type FilesToConvertCreateWithoutUserInput = {
   originalName: string
   storedName: string
   fileType: string
   targetType: string
-  createdAt?: Date | string
   status?: string
+  createdAt?: Date | string
 }
 
 export type FilesToConvertUncheckedCreateWithoutUserInput = {
@@ -491,8 +487,8 @@ export type FilesToConvertUncheckedCreateWithoutUserInput = {
   storedName: string
   fileType: string
   targetType: string
-  createdAt?: Date | string
   status?: string
+  createdAt?: Date | string
 }
 
 export type FilesToConvertCreateOrConnectWithoutUserInput = {
@@ -531,8 +527,8 @@ export type FilesToConvertScalarWhereInput = {
   storedName?: Prisma.StringFilter<"FilesToConvert"> | string
   fileType?: Prisma.StringFilter<"FilesToConvert"> | string
   targetType?: Prisma.StringFilter<"FilesToConvert"> | string
-  createdAt?: Prisma.DateTimeFilter<"FilesToConvert"> | Date | string
   status?: Prisma.StringFilter<"FilesToConvert"> | string
+  createdAt?: Prisma.DateTimeFilter<"FilesToConvert"> | Date | string
 }
 
 export type FilesToConvertCreateManyUserInput = {
@@ -541,8 +537,8 @@ export type FilesToConvertCreateManyUserInput = {
   storedName: string
   fileType: string
   targetType: string
-  createdAt?: Date | string
   status?: string
+  createdAt?: Date | string
 }
 
 export type FilesToConvertUpdateWithoutUserInput = {
@@ -550,8 +546,8 @@ export type FilesToConvertUpdateWithoutUserInput = {
   storedName?: Prisma.StringFieldUpdateOperationsInput | string
   fileType?: Prisma.StringFieldUpdateOperationsInput | string
   targetType?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type FilesToConvertUncheckedUpdateWithoutUserInput = {
@@ -560,8 +556,8 @@ export type FilesToConvertUncheckedUpdateWithoutUserInput = {
   storedName?: Prisma.StringFieldUpdateOperationsInput | string
   fileType?: Prisma.StringFieldUpdateOperationsInput | string
   targetType?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type FilesToConvertUncheckedUpdateManyWithoutUserInput = {
@@ -570,8 +566,8 @@ export type FilesToConvertUncheckedUpdateManyWithoutUserInput = {
   storedName?: Prisma.StringFieldUpdateOperationsInput | string
   fileType?: Prisma.StringFieldUpdateOperationsInput | string
   targetType?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -583,8 +579,8 @@ export type FilesToConvertSelect<ExtArgs extends runtime.Types.Extensions.Intern
   storedName?: boolean
   fileType?: boolean
   targetType?: boolean
-  createdAt?: boolean
   status?: boolean
+  createdAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["filesToConvert"]>
 
@@ -595,8 +591,8 @@ export type FilesToConvertSelectCreateManyAndReturn<ExtArgs extends runtime.Type
   storedName?: boolean
   fileType?: boolean
   targetType?: boolean
-  createdAt?: boolean
   status?: boolean
+  createdAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["filesToConvert"]>
 
@@ -607,8 +603,8 @@ export type FilesToConvertSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   storedName?: boolean
   fileType?: boolean
   targetType?: boolean
-  createdAt?: boolean
   status?: boolean
+  createdAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["filesToConvert"]>
 
@@ -619,11 +615,11 @@ export type FilesToConvertSelectScalar = {
   storedName?: boolean
   fileType?: boolean
   targetType?: boolean
-  createdAt?: boolean
   status?: boolean
+  createdAt?: boolean
 }
 
-export type FilesToConvertOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "originalName" | "storedName" | "fileType" | "targetType" | "createdAt" | "status", ExtArgs["result"]["filesToConvert"]>
+export type FilesToConvertOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "originalName" | "storedName" | "fileType" | "targetType" | "status" | "createdAt", ExtArgs["result"]["filesToConvert"]>
 export type FilesToConvertInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
@@ -646,8 +642,8 @@ export type $FilesToConvertPayload<ExtArgs extends runtime.Types.Extensions.Inte
     storedName: string
     fileType: string
     targetType: string
-    createdAt: Date
     status: string
+    createdAt: Date
   }, ExtArgs["result"]["filesToConvert"]>
   composites: {}
 }
@@ -1078,8 +1074,8 @@ export interface FilesToConvertFieldRefs {
   readonly storedName: Prisma.FieldRef<"FilesToConvert", 'String'>
   readonly fileType: Prisma.FieldRef<"FilesToConvert", 'String'>
   readonly targetType: Prisma.FieldRef<"FilesToConvert", 'String'>
-  readonly createdAt: Prisma.FieldRef<"FilesToConvert", 'DateTime'>
   readonly status: Prisma.FieldRef<"FilesToConvert", 'String'>
+  readonly createdAt: Prisma.FieldRef<"FilesToConvert", 'DateTime'>
 }
     
 
