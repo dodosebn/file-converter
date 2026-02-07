@@ -11,7 +11,7 @@ import { RiGithubFill } from "react-icons/ri";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { AccountIntro, LoginAltBtn } from "./ui";
-import { googleSignin, githubSignin } from "../../../../server/src/config/auth";
+import {  githubSignin } from "../../../../server/src/config/auth";
 import { useAuth } from "../../context/authContext";
 
 const SignUpForm = () => {
@@ -23,6 +23,17 @@ const SignUpForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const handleSignUpWithGoogle = (url: string) => {
+    window.location.href = url;
+  };
+const authSignUpWithGoogle = async () => {
+  const res = await fetch("http://localhost:3000/auth/authExternals", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+  })
+  const data = await res.json();
+  handleSignUpWithGoogle(data.url);
+}
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -120,7 +131,7 @@ const SignUpForm = () => {
         </div>
 
         <div className="flex gap-3">
-          <LoginAltBtn onClickBtn={googleSignin}>
+          <LoginAltBtn onClickBtn={authSignUpWithGoogle}>
             <FaGoogle className="w-5 h-5" />
             Google
           </LoginAltBtn>
