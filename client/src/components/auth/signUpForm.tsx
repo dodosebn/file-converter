@@ -11,7 +11,7 @@ import { RiGithubFill } from "react-icons/ri";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { AccountIntro, LoginAltBtn } from "./ui";
-import {  githubSignin } from "../../../../server/src/config/auth";
+// import {  githubSignin } from "../../../../server/src/config/auth";
 import { useAuth } from "../../context/authContext";
 
 const SignUpForm = () => {
@@ -136,7 +136,8 @@ const authSignUpWithGoogle = async () => {
             Google
           </LoginAltBtn>
 
-          <LoginAltBtn onClickBtn={githubSignin}>
+           <LoginAltBtn onClickBtn={authSignUpWithGoogle}>
+
             <RiGithubFill className="w-5 h-5" />
             GitHub
           </LoginAltBtn>
