@@ -13,6 +13,8 @@ import { useState } from "react";
 import { AccountIntro, LoginAltBtn } from "./ui";
 import { useAuth } from "../../context/authContext";
 
+const API_BASE = "http://localhost:3000";
+
 const SignUpForm = () => {
   const navigate = useNavigate();
   const { signup, loading, error } = useAuth();
@@ -22,17 +24,23 @@ const SignUpForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSignUpWithGoogle = (url: string) => {
-    window.location.href = url;
+  const startOAuth = async (provider: "google" | "github") => {
+    try {
+      const res = await fetch(`${API_BASE}/auth/${provider}`, {
+        method: "POST",
+      });
+
+      if (!res.ok) {
+        throw new Error("OAuth initialization failed");
+      }
+
+      const data = await res.json();
+      window.location.href = data.url;
+    } catch (err) {
+      console.error(`${provider} OAuth error:`, err);
+    }
   };
-const authSignUpWithGoogle = async () => {
-  const res = await fetch("http://localhost:3000/auth/authExternals", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-  })
-  const data = await res.json();
-  handleSignUpWithGoogle(data.url);
-}
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -105,7 +113,11 @@ const authSignUpWithGoogle = async () => {
               onClick={() => setShowPassword(!showPassword)}
               className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
             >
-              {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+              {showPassword ? (
+                <EyeOff className="w-4 h-4" />
+              ) : (
+                <Eye className="w-4 h-4" />
+              )}
             </button>
           </div>
         </div>
@@ -130,13 +142,12 @@ const authSignUpWithGoogle = async () => {
         </div>
 
         <div className="flex gap-3">
-          <LoginAltBtn onClickBtn={authSignUpWithGoogle}>
+          <LoginAltBtn onClickBtn={() => startOAuth("google")}>
             <FaGoogle className="w-5 h-5" />
             Google
           </LoginAltBtn>
 
-           <LoginAltBtn onClickBtn={authSignUpWithGoogle}>
-
+          <LoginAltBtn onClickBtn={() => startOAuth("github")}>
             <RiGithubFill className="w-5 h-5" />
             GitHub
           </LoginAltBtn>
