@@ -11,7 +11,6 @@ import { RiGithubFill } from "react-icons/ri";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { AccountIntro, LoginAltBtn } from "./ui";
-// import {  githubSignin } from "../../../../server/src/config/auth";
 import { useAuth } from "../../context/authContext";
 
 const SignUpForm = () => {
