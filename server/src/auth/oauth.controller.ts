@@ -1,31 +1,39 @@
-import { Request, Response } from 'express';
-import { getOAuthProvider } from './oauth.utils';
+import { Request, Response } from 'express'
+import { getOAuthProvider } from './oauth.utils'
+import { findOrCreateOAuthUser } from './oauth.service'
+import { signJwt } from './jwt'
+
+const normalizeParam = (p: string | string[]) =>
+  Array.isArray(p) ? p[0] : p
 
 export const startOAuth = (req: Request, res: Response) => {
-  const { provider } = req.params;
-  const oauthProvider = getOAuthProvider(Array.isArray(provider) ? provider[0] : provider);
+  const provider = normalizeParam(req.params.provider)
+  const oauthProvider = getOAuthProvider(provider)
 
-  const url = oauthProvider.getAuthUrl();
-  res.json({ url });
-};
+  res.json({ url: oauthProvider.getAuthUrl() })
+}
 
 export const oauthCallback = async (req: Request, res: Response) => {
-  const { provider } = req.params;
-  const code = req.query.code as string;
+  const provider = normalizeParam(req.params.provider)
+  const code = req.query.code as string
 
   try {
-    const oauthProvider = getOAuthProvider(Array.isArray(provider) ? provider[0] : provider);
-    const user = await oauthProvider.getUser(code);
+    const oauthProvider = getOAuthProvider(provider)
+    const oauthUser = await oauthProvider.getUser(code)
 
-    // 🔥 THIS IS WHERE YOU:
-    // - find user by provider+providerId
-    // - or link accounts
-    // - or create user
-    console.log('OAuth user:', user);
+    const user = await findOrCreateOAuthUser(oauthUser)
+    const token = signJwt(user.id)
 
-    res.redirect('http://localhost:5173/in/home');
+    res.cookie('access_token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    })
+
+    res.redirect(`${process.env.FRONTEND_URL}/in/home`)
   } catch (err) {
-    console.error(err);
-    res.redirect('http://localhost:5173/login?error=oauth_failed');
+    console.error('OAuth error:', err)
+    res.redirect(`${process.env.FRONTEND_URL}/login?error=oauth_failed`)
   }
-};
+}

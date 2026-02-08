@@ -4,7 +4,6 @@ import { RiGithubFill } from "react-icons/ri";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { AccountIntro, LoginAltBtn } from "./ui";
-import { githubSignin, googleSignin } from "../../../../server/src/config/auth";
 import { useAuth } from "../../context/authContext";
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -20,6 +19,23 @@ const LoginForm = () => {
     await login(email, password);
     navigate("/in/home");
   };
+  const API_BASE = "http://localhost:3000";
+
+const startOAuth = async (provider: "google" | "github") => {
+  try {
+    const res = await fetch(`${API_BASE}/auth/${provider}`, {
+      method: "POST",
+    });
+
+    if (!res.ok) throw new Error("OAuth init failed");
+
+    const { url } = await res.json();
+    window.location.href = url;
+  } catch (err) {
+    console.error(`${provider} OAuth error`, err);
+  }
+};
+
 
   return (
     <div className="flex items-center justify-center bg-[#f0f6ff] px-4">
@@ -118,12 +134,12 @@ const LoginForm = () => {
 
         {/* OAuth */}
         <div className="flex gap-3">
-          <LoginAltBtn onClickBtn={googleSignin}>
+          <LoginAltBtn onClickBtn={() => startOAuth("google")}>
             <FaGoogle className="w-5 h-5" />
             Google
           </LoginAltBtn>
 
-          <LoginAltBtn onClickBtn={githubSignin}>
+          <LoginAltBtn onClickBtn={() => startOAuth("github")}>
             <RiGithubFill className="w-5 h-5" />
             GitHub
           </LoginAltBtn>

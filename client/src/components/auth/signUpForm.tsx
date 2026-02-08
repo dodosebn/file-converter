@@ -24,22 +24,15 @@ const SignUpForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const startOAuth = async (provider: "google" | "github") => {
-    try {
-      const res = await fetch(`${API_BASE}/auth/${provider}`, {
-        method: "POST",
-      });
+ const startOAuth = async (provider: "google" | "github") => {
+  const res = await fetch(`${API_BASE}/auth/${provider}`, {
+    method: "POST",
+  });
 
-      if (!res.ok) {
-        throw new Error("OAuth initialization failed");
-      }
+  const data = await res.json();
+  window.location.href = data.url;
+};
 
-      const data = await res.json();
-      window.location.href = data.url;
-    } catch (err) {
-      console.error(`${provider} OAuth error:`, err);
-    }
-  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
