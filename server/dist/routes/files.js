@@ -20,32 +20,32 @@ const express_1 = require("express");
 const auth_1 = require("../service/auth");
 const router = (0, express_1.Router)();
 const upload = (0, multer_1.default)({
-    dest: path_1.default.join(process.cwd(), 'tmp'),
+    dest: path_1.default.join(process.cwd(), "tmp"),
     limits: { fileSize: 20 * 1024 * 1024 },
 });
-router.post('/upload', auth_1.auth, upload.single('file'), (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.post("/upload", auth_1.auth, upload.single("file"), (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const file = req.file;
         if (!file)
-            return res.status(400).send('No file uploaded');
+            return res.status(400).send("No file uploaded");
         let targetType;
         const fileType = path_1.default.extname(file.originalname).slice(1).toLowerCase();
-        if (['doc', 'docx', 'xls', 'xlsx'].includes(fileType)) {
-            targetType = 'pdf';
+        if (["doc", "docx", "xls", "xlsx"].includes(fileType)) {
+            targetType = "pdf";
         }
-        else if (fileType === 'pdf') {
+        else if (fileType === "pdf") {
             targetType = req.body.convertTo;
         }
-        else if (['jpg', 'png', 'jpeg'].includes(fileType)) {
-            targetType = 'pdf';
+        else if (["jpg", "png", "jpeg"].includes(fileType)) {
+            targetType = "pdf";
         }
         else {
-            throw new Error('Unsupported file type');
+            throw new Error("Unsupported file type");
         }
         const storedName = `${Date.now()}-${file.originalname}`;
-        const tmpPath = path_1.default.join(process.cwd(), 'tmp', storedName);
+        const tmpPath = path_1.default.join(process.cwd(), "tmp", storedName);
         fs_1.default.renameSync(file.path, tmpPath);
-        const uploadDir = path_1.default.join(process.cwd(), 'uploads');
+        const uploadDir = path_1.default.join(process.cwd(), "uploads");
         if (!fs_1.default.existsSync(uploadDir))
             fs_1.default.mkdirSync(uploadDir);
         const finalPath = path_1.default.join(uploadDir, storedName);
@@ -57,38 +57,40 @@ router.post('/upload', auth_1.auth, upload.single('file'), (req, res) => __await
                 storedName,
                 fileType,
                 targetType,
-                status: 'pending',
+                status: "pending",
             },
         });
-        res.json({ message: 'File uploaded!', file: dbFile });
+        res.json({ message: "File uploaded!", file: dbFile });
     }
     catch (err) {
         console.error(err);
-        res.status(500).send('Server error');
+        res.status(500).send("Server error");
     }
 }));
-router.get('/history', auth_1.auth, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get("/history", auth_1.auth, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const files = yield prisma_1.prisma.filesToConvert.findMany({
         where: { userId: req.userId },
-        orderBy: { createdAt: 'desc' },
+        orderBy: { createdAt: "desc" },
     });
     res.json(files);
 }));
-router.delete('/file/:id', auth_1.auth, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.delete("/file/:id", auth_1.auth, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const fileId = parseInt(Array.isArray(req.params.id) ? req.params.id[0] : req.params.id);
-        const file = yield prisma_1.prisma.filesToConvert.findUnique({ where: { id: fileId } });
+        const file = yield prisma_1.prisma.filesToConvert.findUnique({
+            where: { id: fileId },
+        });
         if (!file || file.userId !== req.userId)
-            return res.status(404).send('File not found');
-        const filePath = path_1.default.join(process.cwd(), 'uploads', file.storedName);
+            return res.status(404).send("File not found");
+        const filePath = path_1.default.join(process.cwd(), "uploads", file.storedName);
         if (fs_1.default.existsSync(filePath))
             fs_1.default.unlinkSync(filePath);
         yield prisma_1.prisma.filesToConvert.delete({ where: { id: fileId } });
-        res.json({ message: 'File deleted permanently' });
+        res.json({ message: "File deleted permanently" });
     }
     catch (err) {
         console.error(err);
-        res.status(500).send('Server error');
+        res.status(500).send("Server error");
     }
 }));
 exports.default = router;

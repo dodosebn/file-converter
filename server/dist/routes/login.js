@@ -19,7 +19,6 @@ const prisma_1 = require("../lib/prisma");
 const auth_1 = require("../service/auth");
 const router = (0, express_1.Router)();
 router.post('/login', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    // res.send('How far login dey active');
     const { email, password } = req.body;
     { }
     if (!email || !password)
