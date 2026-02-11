@@ -5,11 +5,14 @@ import './App.css'
 import { ForgotPage, HomePage, LoginPage, SignUpPage } from './pages'
 import InHome from './pages/inHome'
 import { Layout } from './components'
+import { ToastContainer } from 'react-toastify'
 function App() {
 
   return (
         <BrowserRouter>
 <Layout >
+    <ToastContainer />
+
     <Routes>
       <Route path='/' element={<HomePage />} />
       <Route path='/login' element={<LoginPage />} />

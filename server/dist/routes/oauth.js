@@ -33,11 +33,11 @@ router.get('/callback/google', (req, res) => __awaiter(void 0, void 0, void 0, f
         client.setCredentials(tokenResponse.tokens);
         const user = tokenResponse.tokens;
         yield getUserData(user.access_token);
-        res.redirect('http://localhost:5173/in/home');
+        res.redirect(`${process.env.FRONTEND_URL}/in/home`);
     }
     catch (err) {
         console.error('Google OAuth error:', err);
-        res.redirect('http://localhost:5173/login?error=oauth_failed');
+        res.redirect(`${process.env.FRONTEND_URL}/login?error=oauth_failed`);
     }
 }));
 exports.default = router;

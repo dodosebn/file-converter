@@ -1,3 +1,4 @@
 import Layout from "./layout";
 import Logo from "./logo";
-export {Layout, Logo};
+import Spinner from './spinner';
+export {Layout, Logo, Spinner};

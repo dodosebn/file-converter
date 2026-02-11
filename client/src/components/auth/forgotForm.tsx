@@ -3,18 +3,15 @@ import { Mail, MoveLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import AccountIntro from "./ui/accountIntro";
 import { ApiError, apiRequest } from "../../api/client";
+import { toast } from "react-toastify";
 
 const ForgotForm = () => {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setMessage(null);
-    setError(null);
 
     try {
       const res = await apiRequest<{ message: string }>("/auth/forgot-password", {
@@ -22,9 +19,9 @@ const ForgotForm = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
       });
-      setMessage(res.message);
+      toast.success(res.message);
     } catch (err) {
-      setError(err instanceof ApiError ? err.message : "Failed to send reset email");
+      toast.error(err instanceof ApiError ? err.message : "Failed to send reset email");
     } finally {
       setLoading(false);
     }
@@ -41,9 +38,6 @@ const ForgotForm = () => {
           paragraph="No worries, we'll send you reset instructions"
         />
 
-        {message && <p className="text-green-600 text-sm">{message}</p>}
-        {error && <p className="text-red-600 text-sm">{error}</p>}
-
         <div className="space-y-1">
           <label className="text-sm font-medium text-gray-700">Email</label>
           <div className="relative">
@@ -54,8 +48,7 @@ const ForgotForm = () => {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="you@example.com"
               required
-              className="w-full rounded-lg border bg-[#f0f6ff] border-gray-300 
-                pl-10 pr-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#18b4d8]"
+              className="w-full rounded-lg border bg-[#f0f6ff] border-gray-300 pl-10 pr-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#18b4d8]"
             />
           </div>
         </div>

@@ -40,15 +40,19 @@ router.post('/signup', (req, res) => __awaiter(void 0, void 0, void 0, function*
         if (password.length < 6) {
             return res.status(400).send('Password must be at least 6 characters long');
         }
-        else if (password.includes("1234") ||
+        else if (!name || !email || !password)
+            return res.status(400).json({ message: 'Missing fields' });
+        if (password.length < 6)
+            return res.status(400).json({ message: 'Password must be at least 6 characters long' });
+        if (password.includes("1234") ||
             password.includes("password") ||
             password.includes("abcd") ||
-            password.includes("qwerty")) {
-            return res.status(400).send('Password is too common or insecure');
-        }
-        else if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9]).{6,}$/.test(password)) {
-            return res.status(400).send('Password must include at least one uppercase letter, one lowercase letter, and one special character');
-        }
+            password.includes("qwerty"))
+            return res.status(400).json({ message: 'Password is too common or insecure' });
+        if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9]).{6,}$/.test(password))
+            return res.status(400).json({
+                message: 'Password must include at least one uppercase letter, one lowercase letter, and one special character'
+            });
         if (existingUser) {
             return res.status(409).json({ message: 'Email already in use' });
         }

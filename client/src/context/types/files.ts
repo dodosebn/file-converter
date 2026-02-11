@@ -1,12 +1,17 @@
-export interface UploadResponse {
-  fileId: string;
-  status: "queued" | "processing" | "done";
-  downloadUrl?: string;
-}
+export type FileType = {
+  id: number;
+  originalName: string;
+  storedName: string;
+  fileType: string;
+  targetType: string;
+  status: "pending" | "completed";
+};
 
-export interface FileContextValue {
-  uploading: boolean;
+export type FileContextType = {
+  files: FileType[];
+  loading: boolean;
   error: string | null;
-  result: UploadResponse | null;
-  uploadFile: (file: File) => Promise<void>;
-}
+  fetchHistory: () => Promise<void>;
+  uploadFile: (file: File, convertTo?: string) => Promise<void>;
+  deleteFile: (id: number) => Promise<void>;
+};
