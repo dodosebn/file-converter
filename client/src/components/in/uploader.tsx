@@ -1,53 +1,64 @@
+import { useState, useRef } from "react";
 import { Download } from "lucide-react";
+import useFiles from "../../hooks/useFiles";
 import { ConvertAlert, ConvertDropdown } from "./ui";
 
 const Uploader = () => {
+  const { uploadFile, isUploading } = useFiles();
+  const [convertTo, setConvertTo] = useState("pdf");
+  const [progress, setProgress] = useState(0);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const handleUpload = (file: File) => {
+    uploadFile({
+      file,
+      convertTo,
+      onProgress: setProgress,
+    });
+  };
+
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    if (e.dataTransfer.files.length > 0) {
+      handleUpload(e.dataTransfer.files[0]);
+    }
+  };
+
   return (
-    <section className="flex flex-col gap-8 bg-white rounded-xl p-4 sm:p-6 lg:p-8">
-      <ConvertDropdown />
+    <section className="flex flex-col gap-8 bg-white rounded-xl p-8">
+      <ConvertDropdown onChangeFormat={setConvertTo} />
 
-      <div className="flex justify-center">
-        <div
-          className="
-            w-full
-            max-w-3xl
-            md:max-w-4xl
-            lg:max-w-5xl
-            xl:max-w-6xl
-            flex flex-col
-            items-center
-            gap-4
-            p-6 sm:p-8 lg:p-12
-            border-2 border-dashed border-blue-500
-            bg-[#f3fafe]
-            rounded-2xl
-            text-center
-          "
-        >
-          <button
-            type="button"
-            className="
-              bg-white
-              rounded-full
-              p-5 sm:p-6
-              shadow-sm
-              hover:shadow-md
-              active:scale-95
-              transition
-            "
-          >
-            <Download className="w-10 h-10 sm:w-12 sm:h-12 text-blue-500" />
-          </button>
+      <div
+        onClick={() => inputRef.current?.click()}
+        onDrop={handleDrop}
+        onDragOver={(e) => e.preventDefault()}
+        className="border-2 border-dashed border-blue-500 bg-[#f3fafe] rounded-2xl p-12 text-center cursor-pointer"
+      >
+        <input
+          type="file"
+          hidden
+          ref={inputRef}
+          onChange={(e) =>
+            e.target.files && handleUpload(e.target.files[0])
+          }
+        />
 
-          <h2 className="text-base sm:text-lg lg:text-xl font-semibold">
-            Click or drag your files here to convert
-          </h2>
+        <Download className="w-12 h-12 text-blue-500 mx-auto" />
 
-          <span className="text-sm sm:text-base text-gray-500">
-            Supports JPG, PNG, PDF, DOC, XLS and more
-          </span>
-        </div>
+        <h2 className="font-semibold mt-4">
+          {isUploading ? "Uploading..." : "Click or drag file here"}
+        </h2>
+
+        {isUploading && (
+          <div className="mt-4 w-full bg-gray-200 rounded-full h-2">
+            <div
+              className="bg-blue-500 h-2 rounded-full transition-all"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
+        )}
       </div>
+
       <ConvertAlert />
     </section>
   );

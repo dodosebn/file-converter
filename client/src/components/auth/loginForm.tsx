@@ -8,7 +8,6 @@ import { useAuth } from "../../context/authContext";
 import { toast } from "react-toastify";
 import Spinner from "../spinner";
 
-const API_BASE = "http://localhost:3000";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -35,7 +34,7 @@ const LoginForm = () => {
     try {
       setOauthLoading(provider);
 
-      const res = await fetch(`${API_BASE}/auth/${provider}`, { method: "POST" });
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/auth/${provider}`, { method: "POST" });
 
       if (!res.ok) throw new Error("OAuth init failed");
 
