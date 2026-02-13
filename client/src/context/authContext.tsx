@@ -2,6 +2,7 @@ import {
   createContext,
   useContext,
   useState,
+  useEffect,
   type ReactNode,
 } from "react";
 import { apiRequest, ApiError } from "../api/client";
@@ -11,8 +12,19 @@ const AuthContext = createContext<AuthContextValue | null>(null);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<AuthUser | null>(null);
+  const [token, setToken] = useState<string | null>(
+    localStorage.getItem("token")
+  );
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (token) {
+      localStorage.setItem("token", token);
+    } else {
+      localStorage.removeItem("token");
+    }
+  }, [token]);
 
   const signup = async (name: string, email: string, password: string) => {
     setLoading(true);
@@ -26,6 +38,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       });
 
       setUser(data.user);
+      setToken(data.token); 
     } catch (err) {
       setError(err instanceof ApiError ? err.message : "Signup failed");
     } finally {
@@ -45,6 +58,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       });
 
       setUser(data.user);
+      setToken(data.token); 
     } catch (err) {
       setError(err instanceof ApiError ? err.message : "Login failed");
     } finally {
@@ -54,18 +68,28 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const logout = () => {
     setUser(null);
+    setToken(null); 
+    localStorage.removeItem("token");
   };
 
   return (
     <AuthContext.Provider
-      value={{ user, loading, error, signup, login, logout }}
+      value={{ 
+        user, 
+        token, 
+        isAuthenticated: !!token, 
+        loading, 
+        error, 
+        signup, 
+        login, 
+        logout 
+      }}
     >
       {children}
     </AuthContext.Provider>
   );
 }
 
-// Custom hook for consuming the context
 // eslint-disable-next-line react-refresh/only-export-components
 export function useAuth(): AuthContextValue {
   const ctx = useContext(AuthContext);

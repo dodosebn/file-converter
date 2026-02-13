@@ -5,7 +5,6 @@ import { prisma } from "../lib/prisma";
 export async function findOrCreateOAuthUser(oauthUser: OAuthUser) {
   const { provider, providerId, email, name } = oauthUser
 
-  // 1. Try provider ID first
   let user = await prisma.user.findFirst({
     where:
       provider === 'google'
@@ -13,12 +12,10 @@ export async function findOrCreateOAuthUser(oauthUser: OAuthUser) {
         : { githubId: providerId },
   })
 
-  // 2. If not found, try email (account linking)
   if (!user && email) {
     user = await prisma.user.findUnique({ where: { email } })
 
     if (user) {
-      // Link provider to existing account
       user = await prisma.user.update({
         where: { id: user.id },
         data:
@@ -29,7 +26,6 @@ export async function findOrCreateOAuthUser(oauthUser: OAuthUser) {
     }
   }
 
-  // 3. Still no user → create new one
   if (!user) {
     user = await prisma.user.create({
       data: {

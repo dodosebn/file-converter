@@ -1,4 +1,3 @@
-// auth/providers/github.provider.ts
 import { OAuthProviderHandler } from './index';
 import { OAuthUser } from '../oauth.types';
 

@@ -1,17 +1,18 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
-import { apiRequest } from "../api/client";
+import { apiRequest, API_BASE_URL } from "../api/client";
+import { useAuth } from "../context/authContext";
 
- const UseFiles = () => {
+const UseFiles = () => {
   const queryClient = useQueryClient();
+  const { isAuthenticated } = useAuth(); 
 
-  // 🔹 Fetch history
   const historyQuery = useQuery({
     queryKey: ["files"],
-    queryFn: () => apiRequest("/api/files/history"),
+    queryFn: () => apiRequest("/files/history"),
+    enabled: isAuthenticated,
   });
 
-  // 🔹 Upload mutation (with progress)
   const uploadMutation = useMutation({
     mutationFn: async ({
       file,
@@ -26,10 +27,16 @@ import { apiRequest } from "../api/client";
       formData.append("file", file);
       if (convertTo) formData.append("convertTo", convertTo);
 
+      const token = localStorage.getItem('token');
+
       return new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
-        xhr.open("POST", "/api/files/upload");
+        xhr.open("POST", `${API_BASE_URL}/files/upload`);
         xhr.withCredentials = true;
+
+        if (token) {
+          xhr.setRequestHeader('Authorization', `Bearer ${token}`);
+        }
 
         xhr.upload.onprogress = (event) => {
           if (event.lengthComputable && onProgress) {
@@ -42,13 +49,23 @@ import { apiRequest } from "../api/client";
 
         xhr.onload = () => {
           if (xhr.status >= 200 && xhr.status < 300) {
-            resolve(JSON.parse(xhr.response));
+            try {
+              resolve(JSON.parse(xhr.response));
+            } catch {
+              reject(new Error("Invalid server response"));
+            }
           } else {
-            reject(new Error("Upload failed"));
+            try {
+              const errorData = JSON.parse(xhr.response);
+              reject(new Error(errorData.message || "Upload failed"));
+            } catch {
+              reject(new Error(xhr.responseText || "Upload failed"));
+            }
           }
         };
 
-        xhr.onerror = () => reject(new Error("Upload failed"));
+        xhr.onerror = () => reject(new Error("Network error during upload"));
+        xhr.ontimeout = () => reject(new Error("Upload timed out"));
 
         xhr.send(formData);
       });
@@ -63,10 +80,9 @@ import { apiRequest } from "../api/client";
     },
   });
 
-  // 🔹 Delete mutation
   const deleteMutation = useMutation({
     mutationFn: (id: number) =>
-      apiRequest(`/api/files/file/${id}`, { method: "DELETE" }),
+      apiRequest(`/files/file/${id}`, { method: "DELETE" }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["files"] });
       toast.success("File deleted!");
@@ -85,4 +101,5 @@ import { apiRequest } from "../api/client";
     isUploading: uploadMutation.isPending,
   };
 };
+
 export default UseFiles;
