@@ -1,4 +1,6 @@
 export type FileType = {
+  progress: unknown;
+  size(size: unknown): import("react").ReactNode;
   id: number;
   originalName: string;
   storedName: string;
@@ -7,11 +9,16 @@ export type FileType = {
   status: "pending" | "completed";
 };
 
-export type FileContextType = {
+
+export interface FileContextType {
   files: FileType[];
   loading: boolean;
   error: string | null;
   fetchHistory: () => Promise<void>;
-  uploadFile: (file: File, convertTo?: string) => Promise<void>;
+  uploadFile: (options: {
+    file: File;
+    convertTo?: string;
+    onProgress?: (progress: number) => void;
+  }) => Promise<void>;
   deleteFile: (id: number) => Promise<void>;
-};
+}

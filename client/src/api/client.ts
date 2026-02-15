@@ -1,5 +1,5 @@
 export const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000';
+  import.meta.env.VITE_API_BASE_URL || "http://localhost:3000";
 
 export class ApiError extends Error {
   status: number;
@@ -7,48 +7,41 @@ export class ApiError extends Error {
   constructor(message: string, status: number) {
     super(message);
     this.status = status;
-    this.name = 'ApiError';
+    this.name = "ApiError";
   }
 }
 
 export async function apiRequest<T>(
   endpoint: string,
-  options: RequestInit = {}
+  options: RequestInit = {},
+  token?: string | null
 ): Promise<T> {
-  const token = localStorage.getItem('token');
   const url = `${API_BASE_URL}${endpoint}`;
 
-  console.log('Fetching:', url);
-
-  // Normalize headers safely
   const headers = new Headers(options.headers || {});
 
-  // Add auth token if available
+  // ✅ Attach token ONLY if provided
   if (token) {
-    headers.set('Authorization', `Bearer ${token}`);
+    headers.set("Authorization", `Bearer ${token}`);
   }
 
-  // Only set Content-Type if:
-  // - Body is not FormData
-  // - Content-Type not already set
-  if (!(options.body instanceof FormData) && !headers.has('Content-Type')) {
-    headers.set('Content-Type', 'application/json');
+  // ✅ Only set JSON header if not FormData
+  if (!(options.body instanceof FormData) && !headers.has("Content-Type")) {
+    headers.set("Content-Type", "application/json");
   }
 
   const res = await fetch(url, {
-    credentials: 'include',
+    credentials: "include",
     ...options,
     headers,
   });
 
-  // Handle empty responses safely
   const text = await res.text();
   const data = text ? JSON.parse(text) : {};
 
   if (!res.ok) {
     throw new ApiError(
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (data as any)?.message ?? text ?? 'Request failed',
+      data?.message ?? text ?? "Request failed",
       res.status
     );
   }

@@ -34,7 +34,7 @@ const LoginForm = () => {
     try {
       setOauthLoading(provider);
 
-      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/auth/${provider}`, { method: "POST" });
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/auth/oauth/${provider}`, { method: "POST" });
 
       if (!res.ok) throw new Error("OAuth init failed");
 

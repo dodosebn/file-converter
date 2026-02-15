@@ -23,9 +23,12 @@
     "express": "^5.2.1",
     "google-auth-library": "^10.5.0",
     "jsonwebtoken": "^9.0.3",
+    "libreoffice-convert": "^1.8.1",
     "multer": "^2.0.2",
     "nodemailer": "^8.0.0",
-    "pg": "^8.17.2"
+    "pdfkit": "^0.17.2",
+    "pg": "^8.17.2",
+    "sharp": "^0.34.5"
   },
   "devDependencies": {
     "@types/bcrypt": "^6.0.0",
@@ -35,6 +38,7 @@
     "@types/multer": "^2.0.0",
     "@types/node": "^25.0.10",
     "@types/nodemailer": "^7.0.9",
+    "@types/pdfkit": "^0.17.5",
     "@types/pg": "^8.16.0",
     "prisma": "^7.3.0",
     "ts-node": "^10.9.2",

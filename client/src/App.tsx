@@ -19,6 +19,7 @@ function App() {
       <Route path='/signup' element={<SignUpPage />} />
       <Route path='/forgot-password' element={<ForgotPage />} />
       <Route path='/in/home' element={<InHome />} />
+
     </Routes>
     </Layout>
     </BrowserRouter>)

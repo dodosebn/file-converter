@@ -15,8 +15,6 @@ import { useAuth } from "../../context/authContext";
 import { toast } from "react-toastify";
 import { Spinner } from "..";
 
-const API_BASE = "http://localhost:3000";
-
 const SignUpForm = () => {
   const navigate = useNavigate();
   const { signup, loading } = useAuth();
@@ -28,12 +26,10 @@ const SignUpForm = () => {
 
   const [oauthLoading, setOauthLoading] = useState<null | "google" | "github">(null);
 
-  // OAuth login
   const startOAuth = async (provider: "google" | "github") => {
     try {
       setOauthLoading(provider);
-
-      const res = await fetch(`${API_BASE}/auth/${provider}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/auth/oauth/${provider}`, {
         method: "POST",
       });
 
@@ -47,18 +43,22 @@ const SignUpForm = () => {
     }
   };
 
-  // Form submission
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
-      // Call your signup function (from context or API hook)
-      await signup(name, email, password);
+      console.log("🔥 SIGNUP FORM - SUBMITTING...");
+      
+      const result = await signup(name, email, password);
+      
+      console.log("🔥 SIGNUP FORM - RESULT:", result);
+      console.log("🔥 SIGNUP FORM - LOCALSTORAGE AFTER SIGNUP:", localStorage.getItem('token'));
 
       toast.success("Account created successfully 🎉");
       navigate("/in/home");
     } catch (err) {
-      // Show error toast properly
+      console.error("🔥 SIGNUP FORM - ERROR:", err);
+      
       if (err instanceof Error) {
         toast.error(err.message);
       } else {
@@ -82,7 +82,6 @@ const SignUpForm = () => {
           paragraph="Get started with 20 free conversions"
         />
 
-        {/* Name */}
         <div className="space-y-1">
           <label className="text-sm font-medium text-gray-700">Full Name</label>
           <div className="relative">
@@ -97,7 +96,6 @@ const SignUpForm = () => {
           </div>
         </div>
 
-        {/* Email */}
         <div className="space-y-1">
           <label className="text-sm font-medium text-gray-700">Email</label>
           <div className="relative">
@@ -113,7 +111,6 @@ const SignUpForm = () => {
           </div>
         </div>
 
-        {/* Password */}
         <div className="space-y-1">
           <label className="text-sm font-medium text-gray-700">Password</label>
           <div className="relative">
@@ -131,12 +128,11 @@ const SignUpForm = () => {
               onClick={() => setShowPassword(!showPassword)}
               className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"
             >
-              {showPassword ?  <Eye /> : <EyeOff />}
+              {showPassword ? <Eye /> : <EyeOff />}
             </button>
           </div>
         </div>
 
-        {/* Submit */}
         <button
           type="submit"
           disabled={isBusy}
@@ -155,7 +151,6 @@ const SignUpForm = () => {
           )}
         </button>
 
-        {/* OAuth */}
         <div className="flex gap-3">
           <LoginAltBtn onClickBtn={() => startOAuth("google")}>
             {oauthLoading === "google" ? <Spinner size={18} /> : <FaGoogle className="w-5 h-5" />}

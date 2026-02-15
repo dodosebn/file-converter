@@ -3,16 +3,17 @@ import { toast } from "react-toastify";
 import { apiRequest, API_BASE_URL } from "../api/client";
 import { useAuth } from "../context/authContext";
 
-const UseFiles = () => {
+const useFiles = () => {
   const queryClient = useQueryClient();
-  const { isAuthenticated } = useAuth(); 
+  const { token } = useAuth();
 
   const historyQuery = useQuery({
     queryKey: ["files"],
-    queryFn: () => apiRequest("/files/history"),
-    enabled: isAuthenticated,
+    queryFn: () => apiRequest("/files/history", {}, token),
+    enabled: !!token,
   });
 
+  // ✅ Upload file
   const uploadMutation = useMutation({
     mutationFn: async ({
       file,
@@ -23,20 +24,20 @@ const UseFiles = () => {
       convertTo?: string;
       onProgress?: (percent: number) => void;
     }) => {
+      if (!token) {
+        throw new Error("You must be logged in to upload files.");
+      }
+
       const formData = new FormData();
       formData.append("file", file);
       if (convertTo) formData.append("convertTo", convertTo);
-
-      const token = localStorage.getItem('token');
 
       return new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
         xhr.open("POST", `${API_BASE_URL}/files/upload`);
         xhr.withCredentials = true;
 
-        if (token) {
-          xhr.setRequestHeader('Authorization', `Bearer ${token}`);
-        }
+        xhr.setRequestHeader("Authorization", `Bearer ${token}`);
 
         xhr.upload.onprogress = (event) => {
           if (event.lengthComputable && onProgress) {
@@ -59,14 +60,12 @@ const UseFiles = () => {
               const errorData = JSON.parse(xhr.response);
               reject(new Error(errorData.message || "Upload failed"));
             } catch {
-              reject(new Error(xhr.responseText || "Upload failed"));
+              reject(new Error(`Upload failed (${xhr.status})`));
             }
           }
         };
 
-        xhr.onerror = () => reject(new Error("Network error during upload"));
-        xhr.ontimeout = () => reject(new Error("Upload timed out"));
-
+        xhr.onerror = () => reject(new Error("Network error"));
         xhr.send(formData);
       });
     },
@@ -82,7 +81,7 @@ const UseFiles = () => {
 
   const deleteMutation = useMutation({
     mutationFn: (id: number) =>
-      apiRequest(`/files/file/${id}`, { method: "DELETE" }),
+      apiRequest(`/files/file/${id}`, { method: "DELETE" }, token),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["files"] });
       toast.success("File deleted!");
@@ -102,4 +101,4 @@ const UseFiles = () => {
   };
 };
 
-export default UseFiles;
+export default useFiles;
