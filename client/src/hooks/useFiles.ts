@@ -95,7 +95,7 @@ const useFiles = () => {
     files: historyQuery.data || [],
     loading: historyQuery.isLoading,
     error: historyQuery.error,
-    uploadFile: uploadMutation.mutate,
+    uploadFile: uploadMutation.mutateAsync,
     deleteFile: deleteMutation.mutate,
     isUploading: uploadMutation.isPending,
   };

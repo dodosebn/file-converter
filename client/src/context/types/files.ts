@@ -7,6 +7,7 @@ export type FileType = {
   fileType: string;
   targetType: string;
   status: "pending" | "completed";
+  downloadUrl?: string;
 };
 
 

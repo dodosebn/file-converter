@@ -5,7 +5,6 @@ import useFiles from "../../hooks/useFiles";
 import { ConvertAlert, ConvertDropdown } from "./ui";
 import type { ConvertedFile } from "./ui/convertAlert";
 
-// ✅ Allowed file types matching backend
 const ALLOWED_TYPES = [
   "application/pdf",
   "application/msword",
@@ -28,7 +27,7 @@ const ALLOWED_EXTENSIONS = [
   "png",
 ];
 
-const MAX_FILE_SIZE = 20 * 1024 * 1024; // 20MB
+const MAX_FILE_SIZE = 20 * 1024 * 1024; 
 
 const Uploader = () => {
   const { uploadFile, isUploading } = useFiles();
@@ -80,10 +79,8 @@ const Uploader = () => {
         file,
         convertTo,
         onProgress: (p: number) => {
-          setFiles((prev) =>
-            prev.map((f) =>
-              f.id === tempId ? { ...f, progress: p } : f
-            )
+          setFiles((prev) => prev.map((f) => f.id === tempId ? { ...f, progress: p } : f
+          )
           );
         },
       });
@@ -96,7 +93,10 @@ const Uploader = () => {
                 ...f,
                 status: "completed" as const,
                 progress: 100,
-                downloadUrl: (response as unknown as { downloadUrl?: string })?.downloadUrl,
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                name: (response as any).file.storedName,
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                downloadUrl: (response as any).file.downloadUrl,
               }
             : f
         )

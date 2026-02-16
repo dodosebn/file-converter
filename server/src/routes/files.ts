@@ -18,140 +18,281 @@ const upload = multer({
   fileFilter: (req, file, cb) => {
     const allowed = ["doc", "docx", "xls", "xlsx", "pdf", "jpg", "png", "jpeg"];
     const ext = path.extname(file.originalname).slice(1).toLowerCase();
+
     if (allowed.includes(ext)) cb(null, true);
     else cb(new Error("Unsupported file type"));
   },
 });
 
-// Helper: get final converted filename
 const getStoredName = (originalName: string) =>
   `${Date.now()}-${randomBytes(8).toString("hex")}-${originalName}`;
 
-// Helper: convert office files to PDF
 const convertOfficeToPDF = async (inputPath: string, outputPath: string) => {
-  const inputBuf = await fs.readFile(inputPath);
-  return new Promise<void>((resolve, reject) => {
-    libre.convert(inputBuf, ".pdf", undefined, async (err: any, done: Buffer) => {
-      if (err) return reject(err);
-      await fs.writeFile(outputPath, done);
-      resolve();
-    });
-  });
-};
-
-// Helper: convert PDF to office formats
-const convertPDFToOffice = async (inputPath: string, outputPath: string, format: string) => {
-  const inputBuf = await fs.readFile(inputPath);
-  const ext = format === "doc" ? ".doc" : ".docx";
-  return new Promise<void>((resolve, reject) => {
-    libre.convert(inputBuf, ext, undefined, async (err: any, done: Buffer) => {
-      if (err) return reject(err);
-      await fs.writeFile(outputPath, done);
-      resolve();
-    });
-  });
-};
-
-// Helper: convert image to PDF
-const convertImageToPDF = async (inputPath: string, outputPath: string) => {
-  const imageBuffer = await fs.readFile(inputPath);
-  const metadata = await sharp(imageBuffer).metadata();
-  
-  const doc = new PDFDocument({
-    size: [metadata.width || 595, metadata.height || 842],
-    margin: 0,
-  });
-  
-  doc.pipe(fsSync.createWriteStream(outputPath));
-  doc.image(imageBuffer, 0, 0, { width: metadata.width, height: metadata.height });
-  doc.end();
-  
-  return new Promise<void>((resolve, reject) => {
-    doc.on("finish", resolve);
-    doc.on("error", reject);
-  });
-};
-
-router.post("/upload", auth, upload.single("file"), async (req: AuthRequest, res: Response) => {
-  let tmpPath: string | null = null;
-  let convertedPath: string | null = null;
-
   try {
-    const file = req.file;
-    if (!file) return res.status(400).send("No file uploaded");
+    const inputBuf = await fs.readFile(inputPath);
 
-    const sanitizedOriginalName = path.basename(file.originalname);
-    const fileType = path.extname(sanitizedOriginalName).slice(1).toLowerCase();
-    const convertTo = req.body.convertTo?.toLowerCase();
+    await new Promise<void>((resolve, reject) => {
+      libre.convert(
+        inputBuf,
+        ".pdf",
+        undefined,
+        async (err: any, done: Buffer) => {
+          if (err) {
+            console.error("LibreOffice conversion error:", err);
+            return reject(err);
+          }
 
-    tmpPath = path.join(process.cwd(), "tmp", getStoredName(sanitizedOriginalName));
-    await fs.rename(file.path, tmpPath);
-
-    const uploadDir = path.join(process.cwd(), "uploads");
-    if (!fsSync.existsSync(uploadDir)) await fs.mkdir(uploadDir, { recursive: true });
-
-    // Determine target type and output filename
-    let targetType: string = "";
-    
-    if (["doc", "docx", "xls", "xlsx"].includes(fileType)) {
-      targetType = "pdf";
-      const outputName = getStoredName(sanitizedOriginalName.replace(/\.[^.]+$/, ".pdf"));
-      convertedPath = path.join(uploadDir, outputName);
-      await convertOfficeToPDF(tmpPath, convertedPath);
-      
-    } else if (["jpg", "png", "jpeg"].includes(fileType)) {
-      targetType = "pdf";
-      const outputName = getStoredName(sanitizedOriginalName.replace(/\.[^.]+$/, ".pdf"));
-      convertedPath = path.join(uploadDir, outputName);
-      await convertImageToPDF(tmpPath, convertedPath);
-      
-    } else if (fileType === "pdf") {
-      if (!convertTo || !["doc", "docx"].includes(convertTo)) {
-        return res.status(400).send("For PDF files, convertTo must be 'doc' or 'docx'");
-      }
-      targetType = convertTo;
-      const outputName = getStoredName(sanitizedOriginalName.replace(/\.pdf$/, `.${convertTo}`));
-      convertedPath = path.join(uploadDir, outputName);
-      await convertPDFToOffice(tmpPath, convertedPath, convertTo);
-      
-    } else {
-      return res.status(400).send("Unsupported file type");
-    }
-
-    // Cleanup tmp file
-    if (fsSync.existsSync(tmpPath)) await fs.unlink(tmpPath);
-
-    // Save DB record
-    const dbFile = await prisma.filesToConvert.create({
-      data: {
-        userId: req.userId!,
-        originalName: sanitizedOriginalName,
-        storedName: path.basename(convertedPath),
-        fileType,
-        targetType,
-        status: "completed",
-      },
+          try {
+            await fs.writeFile(outputPath, done);
+            resolve();
+          } catch (writeErr) {
+            reject(writeErr);
+          }
+        },
+      );
     });
-
-    return res.json({ message: "File uploaded and converted!", file: dbFile });
   } catch (err) {
-    console.error("Upload/conversion error:", err);
-
-    // Cleanup
-    try {
-      if (tmpPath && fsSync.existsSync(tmpPath)) await fs.unlink(tmpPath);
-      if (convertedPath && fsSync.existsSync(convertedPath)) await fs.unlink(convertedPath);
-    } catch (cleanupErr) {
-      console.error("Cleanup error:", cleanupErr);
-    }
-
-    if (err instanceof Error && err.message === "Unsupported file type") {
-      return res.status(400).send(err.message);
-    }
-
-    return res.status(500).send("Server error");
+    console.error("convertOfficeToPDF failed:", err);
+    throw err;
   }
-});
+};
+
+const convertPDFToOffice = async (
+  inputPath: string,
+  outputPath: string,
+  format: string,
+) => {
+  try {
+    const inputBuf = await fs.readFile(inputPath);
+    const ext = format === "doc" ? ".doc" : ".docx";
+
+    await new Promise<void>((resolve, reject) => {
+      libre.convert(
+        inputBuf,
+        ext,
+        undefined,
+        async (err: any, done: Buffer) => {
+          if (err) {
+            console.error("LibreOffice conversion error:", err);
+            return reject(err);
+          }
+
+          try {
+            await fs.writeFile(outputPath, done);
+            resolve();
+          } catch (writeErr) {
+            reject(writeErr);
+          }
+        },
+      );
+    });
+  } catch (err) {
+    console.error("convertPDFToOffice failed:", err);
+    throw err;
+  }
+};
+
+const convertImageToPDF = async (inputPath: string, outputPath: string) => {
+  try {
+    const imageBuffer = await fs.readFile(inputPath);
+    const metadata = await sharp(imageBuffer).metadata();
+
+    await new Promise<void>((resolve, reject) => {
+      const doc = new PDFDocument({
+        size: [metadata.width || 595, metadata.height || 842],
+        margin: 0,
+      });
+
+      const stream = fsSync.createWriteStream(outputPath);
+
+      doc.pipe(stream);
+
+      doc.image(imageBuffer, 0, 0, {
+        width: metadata.width,
+        height: metadata.height,
+      });
+
+      doc.end();
+
+      stream.on("finish", () => resolve());
+      stream.on("error", (err) => reject(err));
+    });
+  } catch (err) {
+    console.error("convertImageToPDF failed:", err);
+    throw err;
+  }
+};
+
+const logDebug = (msg: string) => {
+  const logLine = `[${new Date().toISOString()}] ${msg}\n`;
+  console.log(msg);
+  try {
+    fsSync.appendFileSync(
+      path.join(process.cwd(), "server-debug.log"),
+      logLine,
+    );
+  } catch (e) {
+    // ignore
+  }
+};
+
+router.post(
+  "/upload",
+  auth,
+  (req, res, next) => {
+    logDebug("Request received at /upload");
+    const uploadMiddleware = upload.single("file");
+    uploadMiddleware(req, res, (err: any) => {
+      if (err) {
+        logDebug(`Multer error: ${err.message}`);
+        return res.status(400).send(`Multer error: ${err.message}`);
+      }
+      next();
+    });
+  },
+  async (req: AuthRequest, res: Response) => {
+    let tmpPath: string | null = null;
+    let convertedPath: string | null = null;
+
+    try {
+      logDebug("Processing upload request");
+      const file = req.file;
+
+      if (!file) {
+        logDebug("No file in req.file");
+        // Check if file is in req.body or elsewhere (if Multer 2.x behaves oddly)
+        return res.status(400).send("No file uploaded");
+      }
+
+      logDebug(
+        `Uploaded file: ${file.originalname}, path: ${file.path}, size: ${file.size}`,
+      );
+
+      const sanitizedOriginalName = path.basename(file.originalname);
+      const fileType = path
+        .extname(sanitizedOriginalName)
+        .slice(1)
+        .toLowerCase();
+
+      const convertTo = req.body.convertTo?.toLowerCase();
+
+      logDebug(`File type: ${fileType}`);
+      logDebug(`Convert to: ${convertTo}`);
+
+      const tmpDir = path.join(process.cwd(), "tmp");
+      if (!fsSync.existsSync(tmpDir)) {
+        fsSync.mkdirSync(tmpDir, { recursive: true });
+      }
+
+      tmpPath = path.join(tmpDir, getStoredName(sanitizedOriginalName));
+
+      if (!fsSync.existsSync(file.path)) {
+        logDebug(`File not found at ${file.path}`);
+        throw new Error("Uploaded file not found on disk");
+      }
+
+      await fs.rename(file.path, tmpPath);
+      logDebug(`Moved file to ${tmpPath}`);
+
+      const uploadDir = path.join(process.cwd(), "uploads");
+      if (!fsSync.existsSync(uploadDir)) {
+        await fs.mkdir(uploadDir, { recursive: true });
+      }
+
+      let targetType = "";
+
+      if (["doc", "docx", "xls", "xlsx"].includes(fileType)) {
+        targetType = "pdf";
+
+        const outputName = getStoredName(
+          sanitizedOriginalName.replace(/\.[^.]+$/, ".pdf"),
+        );
+
+        convertedPath = path.join(uploadDir, outputName);
+
+        logDebug(`Converting Office to PDF: ${tmpPath} -> ${convertedPath}`);
+        await convertOfficeToPDF(tmpPath, convertedPath);
+      } else if (["jpg", "png", "jpeg"].includes(fileType)) {
+        targetType = "pdf";
+
+        const outputName = getStoredName(
+          sanitizedOriginalName.replace(/\.[^.]+$/, ".pdf"),
+        );
+
+        convertedPath = path.join(uploadDir, outputName);
+
+        logDebug(`Converting Image to PDF: ${tmpPath} -> ${convertedPath}`);
+        await convertImageToPDF(tmpPath, convertedPath);
+      } else if (fileType === "pdf") {
+        if (!convertTo || !["doc", "docx"].includes(convertTo)) {
+          return res
+            .status(400)
+            .send("For PDF files, convertTo must be 'doc' or 'docx'");
+        }
+
+        targetType = convertTo;
+
+        const outputName = getStoredName(
+          sanitizedOriginalName.replace(/\.pdf$/, `.${convertTo}`),
+        );
+
+        convertedPath = path.join(uploadDir, outputName);
+
+        logDebug(`Converting PDF to Office: ${tmpPath} -> ${convertedPath}`);
+        await convertPDFToOffice(tmpPath, convertedPath, convertTo);
+      } else {
+        logDebug("Unsupported file type");
+        return res.status(400).send("Unsupported file type");
+      }
+
+      if (tmpPath && fsSync.existsSync(tmpPath)) {
+        await fs.unlink(tmpPath);
+      }
+
+      const dbFile = await prisma.filesToConvert.create({
+        data: {
+          userId: req.userId!,
+          originalName: sanitizedOriginalName,
+          storedName: path.basename(convertedPath!),
+          fileType,
+          targetType,
+          status: "completed",
+        },
+      });
+
+      logDebug("Conversion completed successfully");
+
+      return res.json({
+        message: "File uploaded and converted!",
+        file: {
+          ...dbFile,
+          downloadUrl: `${req.protocol}://${req.get("host")}/uploads/${dbFile.storedName}`,
+        },
+      });
+    } catch (err: any) {
+      logDebug(`Upload/conversion error: ${err.message}`);
+      if (err.stack) logDebug(err.stack);
+      console.error("Upload/conversion error:", err);
+
+      try {
+        if (tmpPath && fsSync.existsSync(tmpPath)) {
+          await fs.unlink(tmpPath);
+        }
+        if (convertedPath && fsSync.existsSync(convertedPath)) {
+          await fs.unlink(convertedPath);
+        }
+      } catch (cleanupErr) {
+        console.error("Cleanup error:", cleanupErr);
+      }
+
+      if (err.message === "Unsupported file type") {
+        return res.status(400).send(err.message);
+      }
+
+      return res.status(500).send("Server error during file conversion");
+    }
+  },
+);
 
 router.get("/history", auth, async (req: AuthRequest, res: Response) => {
   try {
@@ -159,7 +300,13 @@ router.get("/history", auth, async (req: AuthRequest, res: Response) => {
       where: { userId: req.userId },
       orderBy: { createdAt: "desc" },
     });
-    return res.json(files);
+
+    const enrichedFiles = files.map((file) => ({
+      ...file,
+      downloadUrl: `${req.protocol}://${req.get("host")}/uploads/${file.storedName}`,
+    }));
+
+    return res.json(enrichedFiles);
   } catch (err) {
     console.error("History fetch error:", err);
     return res.status(500).send("Server error");
@@ -168,16 +315,28 @@ router.get("/history", auth, async (req: AuthRequest, res: Response) => {
 
 router.delete("/file/:id", auth, async (req: AuthRequest, res: Response) => {
   try {
-    const fileId = parseInt(Array.isArray(req.params.id) ? req.params.id[0] : req.params.id);
+    const fileId = parseInt(
+      Array.isArray(req.params.id) ? req.params.id[0] : req.params.id,
+    );
+
     if (isNaN(fileId)) return res.status(400).send("Invalid file ID");
 
-    const file = await prisma.filesToConvert.findUnique({ where: { id: fileId } });
-    if (!file || file.userId !== req.userId) return res.status(404).send("File not found");
+    const file = await prisma.filesToConvert.findUnique({
+      where: { id: fileId },
+    });
+
+    if (!file || file.userId !== req.userId) {
+      return res.status(404).send("File not found");
+    }
 
     const filePath = path.join(process.cwd(), "uploads", file.storedName);
-    if (fsSync.existsSync(filePath)) await fs.unlink(filePath);
+
+    if (fsSync.existsSync(filePath)) {
+      await fs.unlink(filePath);
+    }
 
     await prisma.filesToConvert.delete({ where: { id: fileId } });
+
     return res.json({ message: "File deleted permanently" });
   } catch (err) {
     console.error("Delete error:", err);

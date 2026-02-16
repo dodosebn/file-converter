@@ -24,4 +24,8 @@ app.use('/auth', signupRoutes);
 app.use('/auth/oauth', oauthRoutes); 
 app.use('/files', fileRoutes);
 
+// Serves static files to client
+import path from 'path';
+app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));
+
 export default app;

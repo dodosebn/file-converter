@@ -1,0 +1,104 @@
+[2026-02-15T23:14:21.321Z] Request received at /upload
+[2026-02-15T23:14:21.335Z] Processing upload request
+[2026-02-15T23:14:21.336Z] Uploaded file: hello.docx, path: C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\tmp\c013e813d0f778c3861f36093bc49a84, size: 11283
+[2026-02-15T23:14:21.338Z] File type: docx
+[2026-02-15T23:14:21.339Z] Convert to: pdf
+[2026-02-15T23:14:21.347Z] Moved file to C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\tmp\1771197261341-5aac4de0bd244986-hello.docx
+[2026-02-15T23:14:21.349Z] Converting Office to PDF: C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\tmp\1771197261341-5aac4de0bd244986-hello.docx -> C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\uploads\1771197261348-5748d9f6fe1eee2f-hello.pdf
+[2026-02-15T23:14:33.158Z] Conversion completed successfully
+[2026-02-15T23:15:18.703Z] Request received at /upload
+[2026-02-15T23:15:18.707Z] Processing upload request
+[2026-02-15T23:15:18.708Z] Uploaded file: hello.pdf, path: C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\tmp\12939cd04f5984522dde31933dfd4135, size: 19318
+[2026-02-15T23:15:18.709Z] File type: pdf
+[2026-02-15T23:15:18.710Z] Convert to: docx
+[2026-02-15T23:15:18.714Z] Moved file to C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\tmp\1771197318712-db10cd3a034b7643-hello.pdf
+[2026-02-15T23:15:18.717Z] Converting PDF to Office: C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\tmp\1771197318712-db10cd3a034b7643-hello.pdf -> C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\uploads\1771197318717-968701ed60e31970-hello.docx
+[2026-02-15T23:15:37.130Z] Upload/conversion error: Error calling soffice: Could not find platform independent libraries <prefix>
+Error: no export filter for C:\Users\ORJIDO~1\AppData\Local\Temp\libreofficeConvert_-14840-mPIbhpgIcjpZ\source..docx found, aborting.
+Error: no export filter
+
+[2026-02-15T23:15:37.131Z] Error: Error calling soffice: Could not find platform independent libraries <prefix>
+Error: no export filter for C:\Users\ORJIDO~1\AppData\Local\Temp\libreofficeConvert_-14840-mPIbhpgIcjpZ\source..docx found, aborting.
+Error: no export filter
+
+    at C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\node_modules\libreoffice-convert\index.js:69:30
+    at ChildProcess.exithandler (node:child_process:424:5)
+    at ChildProcess.emit (node:events:508:28)
+    at maybeClose (node:internal/child_process:1101:16)
+    at Process.ChildProcess._handle.onexit (node:internal/child_process:305:5)
+[2026-02-16T00:56:36.458Z] Request received at /upload
+[2026-02-16T00:56:36.642Z] Processing upload request
+[2026-02-16T00:56:36.647Z] Uploaded file: OrjiDominion.pdf, path: C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\tmp\467342cfb7d812e71b6a13d2ea5334ae, size: 105810
+[2026-02-16T00:56:36.662Z] File type: pdf
+[2026-02-16T00:56:36.676Z] Convert to: pdf
+[2026-02-16T00:56:36.683Z] Moved file to C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\tmp\1771203396681-751cf1d430645f20-OrjiDominion.pdf
+[2026-02-16T00:57:19.743Z] Request received at /upload
+[2026-02-16T00:57:19.774Z] Processing upload request
+[2026-02-16T00:57:19.776Z] Uploaded file: WhatsApp Image 2024-11-17 at 16.45.36_93b9a382.jpg, path: C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\tmp\f1212511064c4c10273c976289043aeb, size: 29228
+[2026-02-16T00:57:19.779Z] File type: jpg
+[2026-02-16T00:57:19.781Z] Convert to: pdf
+[2026-02-16T00:57:19.789Z] Moved file to C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\tmp\1771203439788-b29124713dc08386-WhatsApp Image 2024-11-17 at 16.45.36_93b9a382.jpg
+[2026-02-16T00:57:19.793Z] Converting Image to PDF: C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\tmp\1771203439788-b29124713dc08386-WhatsApp Image 2024-11-17 at 16.45.36_93b9a382.jpg -> C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\uploads\1771203439792-b730baa5dd027f66-WhatsApp Image 2024-11-17 at 16.45.36_93b9a382.pdf
+[2026-02-16T00:57:20.278Z] Conversion completed successfully
+[2026-02-16T02:31:58.750Z] Request received at /upload
+[2026-02-16T02:31:58.802Z] Processing upload request
+[2026-02-16T02:31:58.803Z] Uploaded file: 8-2-b4-XU.png, path: C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\tmp\aedf3efda709bb641335111da0578d8e, size: 209458
+[2026-02-16T02:31:58.804Z] File type: png
+[2026-02-16T02:31:58.804Z] Convert to: pdf
+[2026-02-16T02:31:58.818Z] Moved file to C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\tmp\1771209118806-16f5369d4c9c5fa1-8-2-b4-XU.png
+[2026-02-16T02:31:58.821Z] Converting Image to PDF: C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\tmp\1771209118806-16f5369d4c9c5fa1-8-2-b4-XU.png -> C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\uploads\1771209118821-3bebb5126ff0e335-8-2-b4-XU.pdf
+[2026-02-16T02:31:59.259Z] Conversion completed successfully
+[2026-02-16T03:15:42.824Z] Request received at /upload
+[2026-02-16T03:15:42.925Z] Processing upload request
+[2026-02-16T03:15:42.940Z] Uploaded file: 8-2-b4-XU.png, path: C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\tmp\d8a2a66e334a9b9165528ff5e03993fb, size: 209458
+[2026-02-16T03:15:42.953Z] File type: png
+[2026-02-16T03:15:42.968Z] Convert to: pdf
+[2026-02-16T03:15:42.988Z] Moved file to C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\tmp\1771211742985-ee321ceffea5f1a4-8-2-b4-XU.png
+[2026-02-16T03:15:43.000Z] Converting Image to PDF: C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\tmp\1771211742985-ee321ceffea5f1a4-8-2-b4-XU.png -> C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\uploads\1771211743000-b6fceea46dd259ec-8-2-b4-XU.pdf
+[2026-02-16T03:15:43.376Z] Conversion completed successfully
+[2026-02-16T03:31:25.227Z] Request received at /upload
+[2026-02-16T03:31:25.259Z] Processing upload request
+[2026-02-16T03:31:25.260Z] Uploaded file: art101.pdf, path: C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\tmp\e49fdfc708b51f99293f838c0629e166, size: 165111
+[2026-02-16T03:31:25.262Z] File type: pdf
+[2026-02-16T03:31:25.263Z] Convert to: pdf
+[2026-02-16T03:31:25.271Z] Moved file to C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\tmp\1771212685266-211251d80d54a44a-art101.pdf
+[2026-02-16T03:34:48.849Z] Request received at /upload
+[2026-02-16T03:34:48.868Z] Processing upload request
+[2026-02-16T03:34:48.876Z] Uploaded file: 8-2-b4-XU.png, path: C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\tmp\7983194e9f81a3a1ff16b1b1ddec56de, size: 209458
+[2026-02-16T03:34:48.878Z] File type: png
+[2026-02-16T03:34:48.879Z] Convert to: pdf
+[2026-02-16T03:34:48.895Z] Moved file to C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\tmp\1771212888886-60c8eaaba0ce7d2b-8-2-b4-XU.png
+[2026-02-16T03:34:48.906Z] Converting Image to PDF: C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\tmp\1771212888886-60c8eaaba0ce7d2b-8-2-b4-XU.png -> C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\uploads\1771212888905-9cfc961fcacb882a-8-2-b4-XU.pdf
+[2026-02-16T03:34:49.411Z] Conversion completed successfully
+[2026-02-16T23:43:20.481Z] Request received at /upload
+[2026-02-16T23:43:20.546Z] Processing upload request
+[2026-02-16T23:43:20.547Z] Uploaded file: WhatsApp Image 2024-11-17 at 16.45.36_93b9a382.jpg, path: C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\tmp\d2082fe98c6fa15f3f56309492cc8784, size: 29228
+[2026-02-16T23:43:20.548Z] File type: jpg
+[2026-02-16T23:43:20.549Z] Convert to: pdf
+[2026-02-16T23:43:20.561Z] Moved file to C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\tmp\1771285400551-c2dba925514a7afc-WhatsApp Image 2024-11-17 at 16.45.36_93b9a382.jpg
+[2026-02-16T23:43:20.564Z] Converting Image to PDF: C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\tmp\1771285400551-c2dba925514a7afc-WhatsApp Image 2024-11-17 at 16.45.36_93b9a382.jpg -> C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\uploads\1771285400563-d020ef80e39ef03c-WhatsApp Image 2024-11-17 at 16.45.36_93b9a382.pdf
+[2026-02-16T23:43:20.979Z] Conversion completed successfully
+[2026-02-16T23:43:36.125Z] Request received at /upload
+[2026-02-16T23:43:36.193Z] Processing upload request
+[2026-02-16T23:43:36.195Z] Uploaded file: Screenshot (2).png, path: C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\tmp\3b2fc59002e5a8e1adff60b3c1290953, size: 221163
+[2026-02-16T23:43:36.197Z] File type: png
+[2026-02-16T23:43:36.203Z] Convert to: pdf
+[2026-02-16T23:43:36.208Z] Moved file to C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\tmp\1771285416207-7848aa9a0aaebc00-Screenshot (2).png
+[2026-02-16T23:43:36.211Z] Converting Image to PDF: C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\tmp\1771285416207-7848aa9a0aaebc00-Screenshot (2).png -> C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\uploads\1771285416211-ccebe266bd9ac258-Screenshot (2).pdf
+[2026-02-16T23:43:36.761Z] Conversion completed successfully
+[2026-02-16T23:44:43.188Z] Request received at /upload
+[2026-02-16T23:44:43.267Z] Processing upload request
+[2026-02-16T23:44:43.289Z] Uploaded file: chibusisi-logbook stuff.docx, path: C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\tmp\8c8b98825286498d89849d376ae74bca, size: 17112
+[2026-02-16T23:44:43.301Z] File type: docx
+[2026-02-16T23:44:43.321Z] Convert to: pdf
+[2026-02-16T23:44:43.339Z] Moved file to C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\tmp\1771285483333-af674529cca1cfa7-chibusisi-logbook stuff.docx
+[2026-02-16T23:44:43.354Z] Converting Office to PDF: C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\tmp\1771285483333-af674529cca1cfa7-chibusisi-logbook stuff.docx -> C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\uploads\1771285483354-763308678c3c981d-chibusisi-logbook stuff.pdf
+[2026-02-16T23:45:16.426Z] Conversion completed successfully
+[2026-02-16T23:47:33.305Z] Request received at /upload
+[2026-02-16T23:47:33.381Z] Processing upload request
+[2026-02-16T23:47:33.384Z] Uploaded file: DR.CJ Assignment on CO2.xlsx, path: C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\tmp\6277289d3391df2b557a1dbae8f98ab0, size: 35628
+[2026-02-16T23:47:33.385Z] File type: xlsx
+[2026-02-16T23:47:33.386Z] Convert to: pdf
+[2026-02-16T23:47:33.420Z] Moved file to C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\tmp\1771285653398-1c0035a8d575a5ec-DR.CJ Assignment on CO2.xlsx
+[2026-02-16T23:47:33.436Z] Converting Office to PDF: C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\tmp\1771285653398-1c0035a8d575a5ec-DR.CJ Assignment on CO2.xlsx -> C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\uploads\1771285653436-88ec17afe7941f25-DR.CJ Assignment on CO2.pdf
+[2026-02-16T23:47:46.042Z] Conversion completed successfully

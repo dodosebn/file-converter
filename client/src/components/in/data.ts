@@ -68,7 +68,9 @@ export const SideItems: SideItem[] = [
 
 export const convertibles = [
   { base: "DOC", quote: "PDF" },
+  { base: "DOCX", quote: "PDF" },
   { base: "XLSX", quote: "PDF" },
   { base: "JPG", quote: "PDF" },
-  { base: "PDF", quote: "JPG" },
+  { base: "PDF", quote: "DOC" },
+  { base: "PDF", quote: "DOCX" },
 ];
