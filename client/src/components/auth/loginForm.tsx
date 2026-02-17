@@ -19,16 +19,19 @@ const LoginForm = () => {
   const [oauthLoading, setOauthLoading] = useState<null | "google" | "github">(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    try {
-      await login(email, password);
-      toast.success("Logged in successfully 🎉");
-      navigate("/in/home");
-    } catch (err) {
-      toast.error(err instanceof Error ? err.message : "Login failed");
-    }
-  };
+  try {
+    await login(email, password); // will throw if login fails
+    toast.success("Logged in successfully 🎉");
+    navigate("/in/home");
+  } catch (err) {
+    console.error("Login failed:", err);
+    toast.error(err instanceof Error ? err.message : "Login failed");
+  }
+};
+
+
 
   const startOAuth = async (provider: "google" | "github") => {
     try {

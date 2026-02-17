@@ -5,9 +5,7 @@ const AuthContext = createContext<AuthContextValue | null>(null);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<AuthUser | null>(null);
-  const [token, setToken] = useState<string | null>(
-    localStorage.getItem("token"),
-  );
+  const [token, setToken] = useState<string | null>(localStorage.getItem("token"));
   const [files, setFiles] = useState<FileData[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -22,16 +20,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     if (!token) return;
     setLoading(true);
     try {
-      const res = await fetch(
-        `${import.meta.env.VITE_API_BASE_URL}/files/history`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        },
-      );
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/files/history`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       if (!res.ok) throw new Error("Failed to fetch files");
       const data = await res.json();
       setFiles(data);
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -39,55 +33,59 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  const login = async (email: string, password: string) => {
+  const login = async (email: string, password: string): Promise<void> => {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch(
-        `${import.meta.env.VITE_API_BASE_URL}/auth/login`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, password }),
-        },
-      );
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/auth/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
 
-      if (!res.ok) throw new Error("Login failed");
+      const data = await res.json();
 
-      const data: { user: AuthUser; token: string } = await res.json();
+      if (!res.ok) {
+        throw new Error(data.message || "Login failed");
+      }
+
       setUser(data.user);
       setToken(data.token);
-      await fetchFiles(); // <-- fetch files immediately after login
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      await fetchFiles();
     } catch (err: any) {
       setError(err.message);
+      throw err;
     } finally {
       setLoading(false);
     }
   };
 
+  // ✅ Fixed signup
   const signup = async (name: string, email: string, password: string) => {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch(
-        `${import.meta.env.VITE_API_BASE_URL}/auth/signup`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ name, email, password }),
-        },
-      );
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/auth/signup`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, password }),
+      });
 
-      if (!res.ok) throw new Error("Signup failed");
+      const data = await res.json(); // parse JSON even on error
 
-      const data: { user: AuthUser; token: string } = await res.json();
+      if (!res.ok) {
+        throw new Error(data.message || "Signup failed"); // throw BE message
+      }
+
+      // Success
       setUser(data.user);
       setToken(data.token);
-      await fetchFiles(); // <-- fetch files immediately after signup
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      await fetchFiles();
+
+      return data;
     } catch (err: any) {
       setError(err.message);
+      throw err; // important so FE can display inline errors
     } finally {
       setLoading(false);
     }
@@ -101,17 +99,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <AuthContext.Provider
-      value={{
-        user,
-        token,
-        files,
-        loading,
-        error,
-        signup,
-        login,
-        logout,
-        fetchFiles,
-      }}
+      value={{ user, token, files, loading, error, signup, login, logout, fetchFiles }}
     >
       {children}
     </AuthContext.Provider>

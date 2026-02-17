@@ -1,4 +1,5 @@
 import {
+  Circle,
   Eye,
   EyeOff,
   Lock,
@@ -9,7 +10,7 @@ import {
 import { FaGoogle } from "react-icons/fa";
 import { RiGithubFill } from "react-icons/ri";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { AccountIntro, LoginAltBtn } from "./ui";
 import { useAuth } from "../../context/authContext";
 import { toast } from "react-toastify";
@@ -24,17 +25,27 @@ const SignUpForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const [emailError, setEmailError] = useState<string | null>(null);
+  const [passwordError, setPasswordError] = useState<string | null>(null);
+
   const [oauthLoading, setOauthLoading] = useState<null | "google" | "github">(null);
+
+  const passwordRules = useMemo(() => {
+    return [
+      { label: "At least 8 characters", valid: password.length >= 8 },
+      { label: "Contains a number", valid: /\d/.test(password) },
+      { label: "Contains uppercase letter", valid: /[A-Z]/.test(password) },
+    ];
+  }, [password]);
 
   const startOAuth = async (provider: "google" | "github") => {
     try {
       setOauthLoading(provider);
-      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/auth/oauth/${provider}`, {
-        method: "POST",
-      });
-
+      const res = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL}/auth/oauth/${provider}`,
+        { method: "POST" }
+      );
       if (!res.ok) throw new Error("OAuth init failed");
-
       const { url } = await res.json();
       window.location.href = url;
     } catch {
@@ -45,22 +56,24 @@ const SignUpForm = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setEmailError(null);
+    setPasswordError(null);
+
+    if (passwordRules.some((r) => !r.valid)) {
+      setPasswordError("Password does not meet all requirements");
+      return;
+    }
 
     try {
-      console.log("🔥 SIGNUP FORM - SUBMITTING...");
-      
-      const result = await signup(name, email, password);
-      
-      console.log("🔥 SIGNUP FORM - RESULT:", result);
-      console.log("🔥 SIGNUP FORM - LOCALSTORAGE AFTER SIGNUP:", localStorage.getItem('token'));
-
+      await signup(name, email, password);
       toast.success("Account created successfully 🎉");
       navigate("/in/home");
-    } catch (err) {
-      console.error("🔥 SIGNUP FORM - ERROR:", err);
-      
+    } catch (err: any) {
       if (err instanceof Error) {
-        toast.error(err.message);
+        const msg = err.message.toLowerCase();
+        if (msg.includes("password")) setPasswordError(err.message);
+        else if (msg.includes("email")) setEmailError(err.message);
+        else toast.error(err.message);
       } else {
         toast.error("Signup failed. Please try again.");
       }
@@ -106,9 +119,12 @@ const SignUpForm = () => {
               onChange={(e) => setEmail(e.target.value)}
               required
               placeholder="name@example.com"
-              className="w-full rounded-lg border bg-[#f0f6ff] border-gray-300 pl-10 pr-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#18b4d8]"
+              className={`w-full rounded-lg border bg-[#f0f6ff] border-gray-300 pl-10 pr-4 py-2 text-sm focus:outline-none focus:ring-2 ${
+                emailError ? "focus:ring-red-500 border-red-500" : "focus:ring-[#18b4d8]"
+              }`}
             />
           </div>
+          {emailError && <p className="text-red-500 text-xs mt-1">{emailError}</p>}
         </div>
 
         <div className="space-y-1">
@@ -121,7 +137,9 @@ const SignUpForm = () => {
               onChange={(e) => setPassword(e.target.value)}
               required
               placeholder="••••••••"
-              className="w-full rounded-lg border bg-[#f0f6ff] border-gray-300 pl-10 pr-10 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#18b4d8]"
+              className={`w-full rounded-lg border bg-[#f0f6ff] border-gray-300 pl-10 pr-10 py-2 text-sm focus:outline-none focus:ring-2 ${
+                passwordError ? "focus:ring-red-500 border-red-500" : "focus:ring-[#18b4d8]"
+              }`}
             />
             <button
               type="button"
@@ -131,6 +149,27 @@ const SignUpForm = () => {
               {showPassword ? <Eye /> : <EyeOff />}
             </button>
           </div>
+
+          {/* Only show password rules and errors if user has typed something */}
+          {password && (
+            <>
+              <ul className="mt-2 space-y-1">
+                {passwordRules.map((rule) => (
+                  <li key={rule.label} className="flex items-center gap-2 text-sm">
+                    <Circle
+                      className={`w-4 h-4 ${rule.valid ? "text-green-500" : "text-gray-400"}`}
+                    />
+                    <span className={`${rule.valid ? "text-green-600" : "text-gray-600"}`}>
+                      {rule.label}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+              {passwordError && !passwordRules.every((r) => r.valid) && (
+                <p className="text-red-500 text-xs mt-1">{passwordError}</p>
+              )}
+            </>
+          )}
         </div>
 
         <button
@@ -140,13 +179,11 @@ const SignUpForm = () => {
         >
           {loading ? (
             <>
-              <Spinner size={18} />
-              Creating account...
+              <Spinner size={18} /> Creating account...
             </>
           ) : (
             <>
-              Create account
-              <MoveRight className="w-4 h-4" />
+              Create account <MoveRight className="w-4 h-4" />
             </>
           )}
         </button>

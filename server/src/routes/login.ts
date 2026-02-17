@@ -6,40 +6,51 @@ import { signJwt } from "../auth/jwt";
 
 const router = Router();
 
-/**
- * LOGIN
- */
+
 router.post("/login", async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
+    console.log(`Login attempt for: ${email}`); 
 
     if (!email || !password) {
+      console.log("Login failed: Missing fields");
       return res.status(400).send("Missing fields");
     }
 
+   
+    const normalizedEmail = email.toLowerCase(); 
+
     const user = await prisma.user.findUnique({
-      where: { email },
+      where: { email: normalizedEmail },
     });
 
-    if (!user || !user.password) {
-      return res.status(401).send("Invalid login");
+    if (!user) {
+      console.log(`Login failed: User not found for email ${normalizedEmail}`);
+      return res.status(401).send("Invalid Email");
+    }
+    if (!user.password) {
+        console.log(`Login failed: User ${normalizedEmail} has no password (maybe OAuth?)`);
+        return res.status(401).send("Invalid Password");
     }
 
     const match = await bcrypt.compare(password, user.password);
     if (!match) {
+      console.log(`Login failed: Password mismatch for ${normalizedEmail}`);
       return res.status(401).send("Invalid login");
     }
 
+    console.log(`Login success for: ${normalizedEmail}`);
     const token = signJwt(user.id);
 
     const { password: _, ...userSafe } = user;
 
     res.json({ token, user: userSafe });
   } catch (error) {
-    console.error(error);
+    console.error("Login error:", error);
     res.status(500).send("Server error");
   }
 });
+
 
 
 router.get("/me", auth, async (req: AuthRequest, res: Response) => {
