@@ -2,7 +2,7 @@
 import { OAuthProviderHandler } from './index';
 import { OAuthUser } from '../oauth.types';
 
-const redirectUri = 'http://localhost:3000/auth/callback/github';
+const redirectUri = `${process.env.SERVER_URL}/auth/oauth/callback/github`;
 
 export class GithubProvider implements OAuthProviderHandler {
   getAuthUrl(): string {

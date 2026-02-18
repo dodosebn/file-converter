@@ -60,7 +60,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  // ✅ Fixed signup
   const signup = async (name: string, email: string, password: string) => {
     setLoading(true);
     setError(null);
@@ -71,13 +70,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         body: JSON.stringify({ name, email, password }),
       });
 
-      const data = await res.json(); // parse JSON even on error
+      const data = await res.json(); 
 
       if (!res.ok) {
-        throw new Error(data.message || "Signup failed"); // throw BE message
+        throw new Error(data.message || "Signup failed"); 
       }
 
-      // Success
       setUser(data.user);
       setToken(data.token);
       await fetchFiles();
@@ -85,7 +83,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       return data;
     } catch (err: any) {
       setError(err.message);
-      throw err; // important so FE can display inline errors
+      throw err; 
     } finally {
       setLoading(false);
     }

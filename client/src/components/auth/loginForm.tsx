@@ -22,7 +22,7 @@ const LoginForm = () => {
   e.preventDefault();
 
   try {
-    await login(email, password); // will throw if login fails
+    await login(email, password); 
     toast.success("Logged in successfully 🎉");
     navigate("/in/home");
   } catch (err) {

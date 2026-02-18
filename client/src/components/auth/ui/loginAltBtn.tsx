@@ -1,8 +1,8 @@
 import type { ReactNode } from "react";
 
 type LoginAltBtnProp = {
-    children: ReactNode;       // the inner content (icon + text)
-    onClickBtn: () => void;    // click handler function
+    children: ReactNode;       
+    onClickBtn: () => void;    
 }
 
 const LoginAltBtn = ({ children, onClickBtn }: LoginAltBtnProp) => {

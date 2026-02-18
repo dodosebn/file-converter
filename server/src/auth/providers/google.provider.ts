@@ -3,7 +3,7 @@ import { OAuth2Client } from 'google-auth-library';
 import { OAuthProviderHandler } from './index';
 import { OAuthUser } from '../oauth.types';
 
-const redirectUri = 'http://localhost:3000/auth/callback/google';
+const redirectUri = `${process.env.SERVER_URL}/auth/oauth/callback/google`;
 
 export class GoogleProvider implements OAuthProviderHandler {
   private client = new OAuth2Client(

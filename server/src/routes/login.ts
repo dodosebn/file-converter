@@ -26,17 +26,16 @@ router.post("/login", async (req: Request, res: Response) => {
 
     if (!user) {
       console.log(`Login failed: User not found for email ${normalizedEmail}`);
-      return res.status(401).send("Invalid Email");
+      return res.status(401).json({message: "Invalid Email"});
     }
     if (!user.password) {
         console.log(`Login failed: User ${normalizedEmail} has no password (maybe OAuth?)`);
-        return res.status(401).send("Invalid Password");
+        return res.status(401).json({ message: "Invalid Password" });
     }
-
     const match = await bcrypt.compare(password, user.password);
     if (!match) {
       console.log(`Login failed: Password mismatch for ${normalizedEmail}`);
-      return res.status(401).send("Invalid login");
+      return res.status(401).json({message: "Invalid login"});
     }
 
     console.log(`Login success for: ${normalizedEmail}`);
@@ -47,7 +46,7 @@ router.post("/login", async (req: Request, res: Response) => {
     res.json({ token, user: userSafe });
   } catch (error) {
     console.error("Login error:", error);
-    res.status(500).send("Server error");
+    res.status(500).json({message: "Server error"});
   }
 });
 

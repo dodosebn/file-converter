@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import { Download } from "lucide-react";
 import { toast } from "react-toastify";
-import useFiles from "../../hooks/useFiles";
+import { useFile } from "../../context/fileContext";
 import { ConvertAlert, ConvertDropdown } from "./ui";
 import type { ConvertedFile } from "./ui/convertAlert";
 
@@ -30,8 +30,9 @@ const ALLOWED_EXTENSIONS = [
 const MAX_FILE_SIZE = 20 * 1024 * 1024; 
 
 const Uploader = () => {
-  const { uploadFile, isUploading } = useFiles();
+  const { uploadFile, loading: isUploading, files: historyFiles } = useFile();
   const [convertTo, setConvertTo] = useState("pdf");
+  const [convertFrom, setConvertFrom] = useState("jpg");
   const [files, setFiles] = useState<ConvertedFile[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -52,6 +53,21 @@ const Uploader = () => {
     if (!ALLOWED_TYPES.includes(file.type) && file.type !== "") {
       toast.error("Invalid file format");
       return false;
+    }
+
+    // Strict Validation: Check if file matches selected source "base" type
+    // allow image grouping for JPG base
+    if (convertFrom === "jpg") {
+      if (!["jpg", "jpeg", "png"].includes(extension)) {
+        toast.error("Please upload an image file (JPG, PNG) for this conversion.");
+        return false;
+      }
+    } else {
+      // For specific types like doc, docx, xlsx, pdf - must match exactly
+      if (extension !== convertFrom) {
+         toast.error(`Please upload a .${convertFrom} file to match your selection.`);
+         return false;
+      }
     }
 
     return true;
@@ -75,7 +91,7 @@ const Uploader = () => {
     ]);
 
     try {
-      const response = await uploadFile({
+      await uploadFile({
         file,
         convertTo,
         onProgress: (p: number) => {
@@ -85,23 +101,9 @@ const Uploader = () => {
         },
       });
 
-      // Mark completed
-      setFiles((prev) =>
-        prev.map((f) =>
-          f.id === tempId
-            ? {
-                ...f,
-                status: "completed" as const,
-                progress: 100,
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                name: (response as any).file.storedName,
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                downloadUrl: (response as any).file.downloadUrl,
-              }
-            : f
-        )
-      );
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      // Remove from local "uploading" state, as it will appear in historyFiles
+      setFiles((prev) => prev.filter((f) => f.id !== tempId));
+
     } catch (_error) {
       toast.error("Conversion failed");
 
@@ -130,9 +132,26 @@ const Uploader = () => {
     e.currentTarget.classList.remove("border-blue-600", "bg-blue-50");
   };
 
+  // Map history files to ConvertedFile format
+  const mappedHistory: ConvertedFile[] = historyFiles.map((f) => ({
+    id: f.id.toString(),
+    name: f.originalName,
+    size: "0mb", // Size not persisted in DB currently
+    progress: 100,
+    status: "completed",
+    downloadUrl: f.downloadUrl,
+  }));
+
+  const displayFiles = [...files, ...mappedHistory];
+
   return (
     <section className="flex flex-col gap-8 bg-white rounded-xl p-8">
-      <ConvertDropdown onChangeFormat={setConvertTo} />
+      <ConvertDropdown
+        onSelectConversion={(base, quote) => {
+          setConvertFrom(base);
+          setConvertTo(quote);
+        }}
+      />
 
       <div
         onClick={() => !isUploading && inputRef.current?.click()}
@@ -184,10 +203,12 @@ const Uploader = () => {
         )}
       </div>
 
-      {/* REAL DATA PASSED */}
       <ConvertAlert
-        files={files}
-        onClearAll={() => setFiles([])}
+        files={displayFiles}
+        onClearAll={() => {
+           setFiles([]);
+           // TODO: Implement clear history in context?
+        }}
       />
     </section>
   );

@@ -1,4 +1,3 @@
-// src/auth/oauth.controller.ts
 import { Request, Response } from 'express'
 import { getOAuthProvider } from './oauth.utils'
 import { findOrCreateOAuthUser } from './oauth.service'

@@ -132,7 +132,6 @@ const logDebug = (msg: string) => {
       logLine,
     );
   } catch (e) {
-    // ignore
   }
 };
 
@@ -145,7 +144,7 @@ router.post(
     uploadMiddleware(req, res, (err: any) => {
       if (err) {
         logDebug(`Multer error: ${err.message}`);
-        return res.status(400).send(`Multer error: ${err.message}`);
+        return res.status(400).json({ message: `Multer error: ${err.message}` });
       }
       next();
     });
@@ -160,8 +159,7 @@ router.post(
 
       if (!file) {
         logDebug("No file in req.file");
-        // Check if file is in req.body or elsewhere (if Multer 2.x behaves oddly)
-        return res.status(400).send("No file uploaded");
+        return res.status(400).json({ message: "No file uploaded" });
       }
 
       logDebug(
@@ -227,7 +225,7 @@ router.post(
         if (!convertTo || !["doc", "docx"].includes(convertTo)) {
           return res
             .status(400)
-            .send("For PDF files, convertTo must be 'doc' or 'docx'");
+            .json({ message: "For PDF files, convertTo must be 'doc' or 'docx'" });
         }
 
         targetType = convertTo;
@@ -242,7 +240,7 @@ router.post(
         await convertPDFToOffice(tmpPath, convertedPath, convertTo);
       } else {
         logDebug("Unsupported file type");
-        return res.status(400).send("Unsupported file type");
+        return res.status(400).json({ message: "Unsupported file type" });
       }
 
       if (tmpPath && fsSync.existsSync(tmpPath)) {
@@ -286,10 +284,10 @@ router.post(
       }
 
       if (err.message === "Unsupported file type") {
-        return res.status(400).send(err.message);
+        return res.status(400).json({ message: err.message });
       }
 
-      return res.status(500).send("Server error during file conversion");
+      return res.status(500).json({ message: "Server error during file conversion" });
     }
   },
 );
@@ -309,7 +307,7 @@ router.get("/history", auth, async (req: AuthRequest, res: Response) => {
     return res.json(enrichedFiles);
   } catch (err) {
     console.error("History fetch error:", err);
-    return res.status(500).send("Server error");
+    return res.status(500).json({ message: "Server error" });
   }
 });
 
@@ -319,14 +317,14 @@ router.delete("/file/:id", auth, async (req: AuthRequest, res: Response) => {
       Array.isArray(req.params.id) ? req.params.id[0] : req.params.id,
     );
 
-    if (isNaN(fileId)) return res.status(400).send("Invalid file ID");
+    if (isNaN(fileId)) return res.status(400).json({ message: "Invalid file ID" });
 
     const file = await prisma.filesToConvert.findUnique({
       where: { id: fileId },
     });
 
     if (!file || file.userId !== req.userId) {
-      return res.status(404).send("File not found");
+      return res.status(404).json({ message: "File not found" });
     }
 
     const filePath = path.join(process.cwd(), "uploads", file.storedName);
@@ -340,7 +338,7 @@ router.delete("/file/:id", auth, async (req: AuthRequest, res: Response) => {
     return res.json({ message: "File deleted permanently" });
   } catch (err) {
     console.error("Delete error:", err);
-    return res.status(500).send("Server error");
+    return res.status(500).json({ message: "Server error" });
   }
 });
 

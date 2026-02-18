@@ -1,6 +1,4 @@
 export type FileType = {
-  progress: unknown;
-  size(size: unknown): import("react").ReactNode;
   id: number;
   originalName: string;
   storedName: string;
@@ -8,6 +6,7 @@ export type FileType = {
   targetType: string;
   status: "pending" | "completed";
   downloadUrl?: string;
+  createdAt?: string; 
 };
 
 
@@ -20,6 +19,6 @@ export interface FileContextType {
     file: File;
     convertTo?: string;
     onProgress?: (progress: number) => void;
-  }) => Promise<void>;
+  }) => Promise<FileType | undefined>;
   deleteFile: (id: number) => Promise<void>;
 }

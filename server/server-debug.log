@@ -102,3 +102,33 @@ Error: no export filter
 [2026-02-16T23:47:33.420Z] Moved file to C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\tmp\1771285653398-1c0035a8d575a5ec-DR.CJ Assignment on CO2.xlsx
 [2026-02-16T23:47:33.436Z] Converting Office to PDF: C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\tmp\1771285653398-1c0035a8d575a5ec-DR.CJ Assignment on CO2.xlsx -> C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\uploads\1771285653436-88ec17afe7941f25-DR.CJ Assignment on CO2.pdf
 [2026-02-16T23:47:46.042Z] Conversion completed successfully
+[2026-02-17T22:33:25.972Z] Request received at /upload
+[2026-02-17T22:33:26.090Z] Processing upload request
+[2026-02-17T22:33:26.092Z] Uploaded file: Trading_in_the_Zone_040143.pdf, path: C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\tmp\d590dde9cccb8aef70ba3efc3264b106, size: 750151
+[2026-02-17T22:33:26.093Z] File type: pdf
+[2026-02-17T22:33:26.093Z] Convert to: pdf
+[2026-02-17T22:33:26.095Z] Moved file to C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\tmp\1771367606094-ca382f2e8cce6b64-Trading_in_the_Zone_040143.pdf
+[2026-02-17T22:49:26.931Z] Request received at /upload
+[2026-02-17T22:49:27.006Z] Processing upload request
+[2026-02-17T22:49:27.007Z] Uploaded file: DR.CJ Assignment on CO2.xlsx, path: C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\tmp\7fd2ee7e9db2cfa1ec72de58bc18c2bf, size: 78954
+[2026-02-17T22:49:27.016Z] File type: xlsx
+[2026-02-17T22:49:27.017Z] Convert to: pdf
+[2026-02-17T22:49:27.020Z] Moved file to C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\tmp\1771368567019-e66c8b849f4ae977-DR.CJ Assignment on CO2.xlsx
+[2026-02-17T22:49:27.022Z] Converting Office to PDF: C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\tmp\1771368567019-e66c8b849f4ae977-DR.CJ Assignment on CO2.xlsx -> C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\uploads\1771368567022-5d2f20a26d601aa1-DR.CJ Assignment on CO2.pdf
+[2026-02-17T22:49:46.583Z] Conversion completed successfully
+[2026-02-17T23:30:07.692Z] Request received at /upload
+[2026-02-17T23:30:07.769Z] Processing upload request
+[2026-02-17T23:30:07.771Z] Uploaded file: Screenshot (2).png, path: C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\tmp\25336ed4672bf32a3a8bad731ccbaef4, size: 221163
+[2026-02-17T23:30:07.773Z] File type: png
+[2026-02-17T23:30:07.775Z] Convert to: pdf
+[2026-02-17T23:30:07.787Z] Moved file to C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\tmp\1771371007778-eccb65de3605fd9b-Screenshot (2).png
+[2026-02-17T23:30:07.789Z] Converting Image to PDF: C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\tmp\1771371007778-eccb65de3605fd9b-Screenshot (2).png -> C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\uploads\1771371007789-d3fe4a18ecc43480-Screenshot (2).pdf
+[2026-02-17T23:30:08.676Z] Conversion completed successfully
+[2026-02-17T23:32:23.269Z] Request received at /upload
+[2026-02-17T23:32:23.274Z] Processing upload request
+[2026-02-17T23:32:23.276Z] Uploaded file: DR.CJ Assignment on CO2.xlsx, path: C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\tmp\4b76b43a92fdf819f0ea890103898863, size: 78954
+[2026-02-17T23:32:23.280Z] File type: xlsx
+[2026-02-17T23:32:23.282Z] Convert to: pdf
+[2026-02-17T23:32:23.285Z] Moved file to C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\tmp\1771371143283-c3160afab99be844-DR.CJ Assignment on CO2.xlsx
+[2026-02-17T23:32:23.288Z] Converting Office to PDF: C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\tmp\1771371143283-c3160afab99be844-DR.CJ Assignment on CO2.xlsx -> C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\uploads\1771371143287-c531ca77db3267b4-DR.CJ Assignment on CO2.pdf
+[2026-02-17T23:32:43.729Z] Conversion completed successfully

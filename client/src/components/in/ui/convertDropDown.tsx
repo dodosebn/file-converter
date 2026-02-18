@@ -3,21 +3,20 @@ import { ChevronDown, Ellipsis } from "lucide-react";
 import ConverterModal from "./converterModal";
 
 interface ConvertDropdownProps {
-  onChangeFormat: (format: string) => void;
+  onSelectConversion: (base: string, quote: string) => void;
 }
 
-const ConvertDropdown = ({ onChangeFormat }: ConvertDropdownProps) => {
+const ConvertDropdown = ({ onSelectConversion }: ConvertDropdownProps) => {
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState("Convert JPG to PDF");
 
   const handleSelect = (value: string) => {
     setSelected(value);
 
-    // extract format (PDF from "Convert JPG to PDF")
-    const format = value.split(" to ")[1]?.toLowerCase();
+    const [base, quote] = value.split(" to ");
 
-    if (format) {
-      onChangeFormat(format);
+    if (base && quote) {
+      onSelectConversion(base.toLowerCase(), quote.toLowerCase());
     }
 
     setOpen(false);
