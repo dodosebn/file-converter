@@ -11,7 +11,7 @@ const files_1 = __importDefault(require("./routes/files"));
 const oauth_routes_1 = __importDefault(require("./auth/oauth.routes"));
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)({
-    origin: "http://localhost:5173",
+    origin: process.env.FRONTEND_URL || "http://localhost:5173",
     credentials: true,
 }));
 app.use(express_1.default.json());
