@@ -3,13 +3,11 @@ import './index.css'
 import App from './App.tsx'
 import { ThemeProvider } from './context/theme-context.tsx'
 import { AuthProvider } from './context/authContext.tsx'
-// import { FileProvider } from './context/fileContext.tsx'
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { FileProvider } from './context/fileContext.tsx'
 
 const queryClient = new QueryClient();
 createRoot(document.getElementById('root')!).render(
-  // <StrictMode>
     <ThemeProvider >
       <AuthProvider>
   <FileProvider>
@@ -20,7 +18,6 @@ createRoot(document.getElementById('root')!).render(
     </FileProvider>
     </AuthProvider>
     </ThemeProvider>
-  // </StrictMode>,
 )
 
 
