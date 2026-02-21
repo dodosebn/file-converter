@@ -10,11 +10,59 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // keep token in localStorage
   useEffect(() => {
     if (token) localStorage.setItem("token", token);
     else localStorage.removeItem("token");
   }, [token]);
+
+  useEffect(() => {
+    const handleOAuthCallback = async () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const urlToken = urlParams.get("token");
+
+      if (urlToken) {
+        setToken(urlToken);
+        localStorage.setItem("token", urlToken);
+        
+        window.history.replaceState({}, document.title, window.location.pathname);
+
+        setLoading(true);
+        try {
+          const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/auth/me`, {
+            headers: { Authorization: `Bearer ${urlToken}` },
+          });
+          if (res.ok) {
+            const data = await res.json();
+            setUser(data);
+            await fetchFiles();
+          }
+        } catch (err: any) {
+          console.error("Auth initialization failed:", err);
+          setError(err.message);
+        } finally {
+          setLoading(false);
+        }
+      } else if (token && !user) {
+         setLoading(true);
+         fetch(`${import.meta.env.VITE_API_BASE_URL}/auth/me`, {
+             headers: { Authorization: `Bearer ${token}` },
+         })
+         .then(res => res.ok ? res.json() : null)
+         .then(data => {
+             if (data) {
+                 setUser(data);
+                 fetchFiles();
+             } else {
+                 setToken(null);
+             }
+         })
+         .catch(() => setToken(null))
+         .finally(() => setLoading(false));
+      }
+    };
+
+    handleOAuthCallback();
+  }, []);
 
   const fetchFiles = async () => {
     if (!token) return;
@@ -70,10 +118,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         body: JSON.stringify({ name, email, password }),
       });
 
-      const data = await res.json(); 
+      const data = await res.json();
 
       if (!res.ok) {
-        throw new Error(data.message || "Signup failed"); 
+        throw new Error(data.message || "Signup failed");
       }
 
       setUser(data.user);
@@ -83,7 +131,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       return data;
     } catch (err: any) {
       setError(err.message);
-      throw err; 
+      throw err;
     } finally {
       setLoading(false);
     }

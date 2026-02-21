@@ -1,4 +1,3 @@
-// src/auth/oauth.service.ts
 import { OAuthUser } from './oauth.types'
 import { prisma } from "../lib/prisma";
 

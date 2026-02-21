@@ -3,14 +3,22 @@ import { OAuth2Client } from 'google-auth-library';
 import { OAuthProviderHandler } from './index';
 import { OAuthUser } from '../oauth.types';
 
-const redirectUri = `${process.env.SERVER_URL}/auth/oauth/callback/google`;
+
 
 export class GoogleProvider implements OAuthProviderHandler {
-  private client = new OAuth2Client(
-    process.env.GOOGLE_CLIENT_ID,
-    process.env.GOOGLE_CLIENT_SECRET,
-    redirectUri
-  );
+  private _client: OAuth2Client | null = null;
+
+  private get client() {
+    if (!this._client) {
+      const redirectUri = `${process.env.SERVER_URL}/auth/oauth/callback/google`;
+      this._client = new OAuth2Client(
+        process.env.GOOGLE_CLIENT_ID,
+        process.env.GOOGLE_CLIENT_SECRET,
+        redirectUri
+      );
+    }
+    return this._client;
+  }
 
   getAuthUrl(): string {
     return this.client.generateAuthUrl({

@@ -1,4 +1,3 @@
-// src/auth/oauth.types.ts
 export type OAuthProvider = 'google' | 'github';
 
 export interface OAuthUser {

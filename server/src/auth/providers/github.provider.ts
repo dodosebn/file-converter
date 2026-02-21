@@ -2,10 +2,11 @@
 import { OAuthProviderHandler } from './index';
 import { OAuthUser } from '../oauth.types';
 
-const redirectUri = `${process.env.SERVER_URL}/auth/oauth/callback/github`;
+
 
 export class GithubProvider implements OAuthProviderHandler {
   getAuthUrl(): string {
+    const redirectUri = `${process.env.SERVER_URL}/auth/oauth/callback/github`;
     return (
       `https://github.com/login/oauth/authorize` +
       `?client_id=${process.env.GITHUB_CLIENT_ID}` +

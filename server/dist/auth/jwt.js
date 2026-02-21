@@ -6,5 +6,5 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.signJwt = signJwt;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 function signJwt(userId) {
-    return jsonwebtoken_1.default.sign({ sub: userId }, process.env.JWT_SECRET, { expiresIn: '7d' });
+    return jsonwebtoken_1.default.sign({ sub: userId }, process.env.JWT_SECRET, { expiresIn: "3h" });
 }

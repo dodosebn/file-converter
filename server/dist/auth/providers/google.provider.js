@@ -1,5 +1,4 @@
 "use strict";
-// auth/providers/google.provider.ts
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -11,11 +10,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GoogleProvider = void 0;
+// src/auth/providers/google.provider.ts
 const google_auth_library_1 = require("google-auth-library");
-const redirectUri = 'http://localhost:3000/auth/callback/google';
 class GoogleProvider {
     constructor() {
-        this.client = new google_auth_library_1.OAuth2Client(process.env.GOOGLE_CLIENT_ID, process.env.GOOGLE_CLIENT_SECRET, redirectUri);
+        this._client = null;
+    }
+    get client() {
+        if (!this._client) {
+            const redirectUri = `${process.env.SERVER_URL}/auth/oauth/callback/google`;
+            this._client = new google_auth_library_1.OAuth2Client(process.env.GOOGLE_CLIENT_ID, process.env.GOOGLE_CLIENT_SECRET, redirectUri);
+        }
+        return this._client;
     }
     getAuthUrl() {
         return this.client.generateAuthUrl({

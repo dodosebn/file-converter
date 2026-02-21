@@ -6,7 +6,7 @@ import {
   type ReactNode,
 } from "react";
 import { toast } from "react-toastify";
-import { apiRequest, ApiError } from "../api/client";
+import { apiRequest, ApiError, API_BASE_URL } from "../api/client";
 import { useAuth } from "./authContext";
 import type { FileContextType, FileType } from "./types/files";
 import axios from "axios";
@@ -66,7 +66,7 @@ export const FileProvider: React.FC<{ children: ReactNode }> = ({
 
   try {
     const res = await axios.post(
-      `${import.meta.env.VITE_API_URL}/files/upload`,
+      `${API_BASE_URL}/files/upload`,
       formData,
       {
         withCredentials: true,

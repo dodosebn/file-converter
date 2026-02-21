@@ -132,3 +132,11 @@ Error: no export filter
 [2026-02-17T23:32:23.285Z] Moved file to C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\tmp\1771371143283-c3160afab99be844-DR.CJ Assignment on CO2.xlsx
 [2026-02-17T23:32:23.288Z] Converting Office to PDF: C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\tmp\1771371143283-c3160afab99be844-DR.CJ Assignment on CO2.xlsx -> C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\uploads\1771371143287-c531ca77db3267b4-DR.CJ Assignment on CO2.pdf
 [2026-02-17T23:32:43.729Z] Conversion completed successfully
+[2026-02-21T02:52:41.348Z] Request received at /upload
+[2026-02-21T02:52:41.560Z] Processing upload request
+[2026-02-21T02:52:41.566Z] Uploaded file: Screenshot (2).png, path: C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\tmp\35c5cb9fdea144f6f2265c91479c4a40, size: 221163
+[2026-02-21T02:52:41.567Z] File type: png
+[2026-02-21T02:52:41.576Z] Convert to: pdf
+[2026-02-21T02:52:41.590Z] Moved file to C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\tmp\1771642361580-3e1a91e1628dc100-Screenshot (2).png
+[2026-02-21T02:52:41.595Z] Converting Image to PDF: C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\tmp\1771642361580-3e1a91e1628dc100-Screenshot (2).png -> C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\uploads\1771642361595-159d3b58004c55fd-Screenshot (2).pdf
+[2026-02-21T02:52:42.795Z] Conversion completed successfully

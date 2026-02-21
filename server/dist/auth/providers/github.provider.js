@@ -10,9 +10,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GithubProvider = void 0;
-const redirectUri = 'http://localhost:3000/auth/callback/github';
 class GithubProvider {
     getAuthUrl() {
+        const redirectUri = `${process.env.SERVER_URL}/auth/oauth/callback/github`;
         return (`https://github.com/login/oauth/authorize` +
             `?client_id=${process.env.GITHUB_CLIENT_ID}` +
             `&redirect_uri=${encodeURIComponent(redirectUri)}` +

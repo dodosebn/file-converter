@@ -1,5 +1,5 @@
 export const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || "http://localhost:3000";
+  import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
 
 export class ApiError extends Error {
   status: number;
@@ -20,12 +20,10 @@ export async function apiRequest<T>(
 
   const headers = new Headers(options.headers || {});
 
-  // ✅ Attach token ONLY if provided
   if (token) {
     headers.set("Authorization", `Bearer ${token}`);
   }
 
-  // ✅ Only set JSON header if not FormData
   if (!(options.body instanceof FormData) && !headers.has("Content-Type")) {
     headers.set("Content-Type", "application/json");
   }

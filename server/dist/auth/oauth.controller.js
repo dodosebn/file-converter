@@ -34,7 +34,7 @@ const oauthCallback = (req, res) => __awaiter(void 0, void 0, void 0, function* 
             sameSite: 'lax',
             maxAge: 7 * 24 * 60 * 60 * 1000,
         });
-        res.redirect(`${process.env.FRONTEND_URL}/in/home`);
+        res.redirect(`${process.env.FRONTEND_URL}/in/home?token=${token}`);
     }
     catch (err) {
         console.error('OAuth error:', err);
