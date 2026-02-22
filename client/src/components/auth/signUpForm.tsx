@@ -1,12 +1,4 @@
-import {
-  Circle,
-  Eye,
-  EyeOff,
-  Lock,
-  Mail,
-  MoveRight,
-  User,
-} from "lucide-react";
+import { Circle, Eye, EyeOff, Lock, Mail, MoveRight, User } from "lucide-react";
 import { FaGoogle } from "react-icons/fa";
 import { RiGithubFill } from "react-icons/ri";
 import { Link, useNavigate } from "react-router-dom";
@@ -28,7 +20,9 @@ const SignUpForm = () => {
   const [emailError, setEmailError] = useState<string | null>(null);
   const [passwordError, setPasswordError] = useState<string | null>(null);
 
-  const [oauthLoading, setOauthLoading] = useState<null | "google" | "github">(null);
+  const [oauthLoading, setOauthLoading] = useState<null | "google" | "github">(
+    null,
+  );
 
   const passwordRules = useMemo(() => {
     return [
@@ -43,7 +37,7 @@ const SignUpForm = () => {
       setOauthLoading(provider);
       const res = await fetch(
         `${import.meta.env.VITE_API_BASE_URL}/auth/oauth/${provider}`,
-        { method: "POST" }
+        { method: "POST" },
       );
       if (!res.ok) throw new Error("OAuth init failed");
       const { url } = await res.json();
@@ -83,10 +77,10 @@ const SignUpForm = () => {
   const isBusy = loading || oauthLoading !== null;
 
   return (
-    <div className="flex items-center justify-center bg-[#f0f6ff] px-4">
+    <div className="flex items-center justify-center px-4">
       <form
         onSubmit={handleSubmit}
-        className={`md:w-[26rem] max-w-md rounded-xl bg-white p-6 shadow-xl space-y-6 ${
+        className={`md:w-[26rem] max-w-md rounded-xl bg-white dark:bg-[#141f38] p-6 shadow-xl space-y-6 ${
           isBusy ? "pointer-events-none opacity-95" : ""
         }`}
       >
@@ -96,7 +90,9 @@ const SignUpForm = () => {
         />
 
         <div className="space-y-1">
-          <label className="text-sm font-medium text-gray-700">Full Name</label>
+          <label className="text-sm font-medium text-gray-700 dark:text-[#f8fafc]">
+            Full Name
+          </label>
           <div className="relative">
             <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
             <input
@@ -104,13 +100,16 @@ const SignUpForm = () => {
               placeholder="John Doe"
               onChange={(e) => setName(e.target.value)}
               required
-              className="w-full rounded-lg border bg-[#f0f6ff] border-gray-300 pl-10 pr-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#18b4d8]"
+              className="w-full text-gray-900 dark:text-[#f8fafc]
+placeholder:text-gray-400 dark:placeholder:text-gray-500 border rounded-lg  bg-[#f0f6ff] dark:bg-[#0f1729] 
+              border-[#141f38]  pl-10 pr-4 py-2 text-sm focus:outline-none focus:ring-1 
+              focus:ring-[#18b4d8]"
             />
           </div>
         </div>
 
         <div className="space-y-1">
-          <label className="text-sm font-medium text-gray-700">Email</label>
+          <label className="text-sm font-medium text-gray-700 dark:text-[#f8fafc]">Email</label>
           <div className="relative">
             <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
             <input
@@ -119,16 +118,24 @@ const SignUpForm = () => {
               onChange={(e) => setEmail(e.target.value)}
               required
               placeholder="name@example.com"
-              className={`w-full rounded-lg border bg-[#f0f6ff] border-gray-300 pl-10 pr-4 py-2 text-sm focus:outline-none focus:ring-2 ${
-                emailError ? "focus:ring-red-500 border-red-500" : "focus:ring-[#18b4d8]"
-              }`}
+              className={`w-full rounded-lg border text-gray-900 dark:text-[#f8fafc]
+placeholder:text-gray-400 dark:placeholder:text-gray-500 dark:bg-[#0f1729] bg-[#f0f6ff] border-[#141f38]
+                pl-10 pr-4 py-2 text-sm focus:outline-none focus:ring-1 ${
+                  emailError
+                    ? "focus:ring-red-500 border-red-500"
+                    : "focus:ring-[#18b4d8]"
+                }`}
             />
           </div>
-          {emailError && <p className="text-red-500 text-xs mt-1">{emailError}</p>}
+          {emailError && (
+            <p className="text-red-500 text-xs mt-1">{emailError}</p>
+          )}
         </div>
 
         <div className="space-y-1">
-          <label className="text-sm font-medium text-gray-700">Password</label>
+          <label className="text-sm font-medium text-gray-700 dark:text-[#f8fafc]">
+            Password
+          </label>
           <div className="relative">
             <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
             <input
@@ -137,9 +144,13 @@ const SignUpForm = () => {
               onChange={(e) => setPassword(e.target.value)}
               required
               placeholder="••••••••"
-              className={`w-full rounded-lg border bg-[#f0f6ff] border-gray-300 pl-10 pr-10 py-2 text-sm focus:outline-none focus:ring-2 ${
-                passwordError ? "focus:ring-red-500 border-red-500" : "focus:ring-[#18b4d8]"
-              }`}
+              className={`w-full rounded-lg text-gray-900 dark:text-[#f8fafc]
+placeholder:text-gray-400 dark:placeholder:text-gray-500 border bg-[#f0f6ff] dark:bg-[#0f1729] border-[#141f38]
+                 pl-10 pr-10 py-2 text-sm focus:outline-none focus:ring-1 ${
+                   passwordError
+                     ? "focus:ring-red-500 border-red-500"
+                     : "focus:ring-[#18b4d8]"
+                 }`}
             />
             <button
               type="button"
@@ -150,16 +161,20 @@ const SignUpForm = () => {
             </button>
           </div>
 
-          {/* Only show password rules and errors if user has typed something */}
           {password && (
             <>
               <ul className="mt-2 space-y-1">
                 {passwordRules.map((rule) => (
-                  <li key={rule.label} className="flex items-center gap-2 text-sm">
+                  <li
+                    key={rule.label}
+                    className="flex items-center gap-2 text-sm"
+                  >
                     <Circle
                       className={`w-4 h-4 ${rule.valid ? "text-green-500" : "text-gray-400"}`}
                     />
-                    <span className={`${rule.valid ? "text-green-600" : "text-gray-600"}`}>
+                    <span
+                      className={`${rule.valid ? "text-green-600" : "text-gray-600"}`}
+                    >
                       {rule.label}
                     </span>
                   </li>
@@ -187,20 +202,30 @@ const SignUpForm = () => {
             </>
           )}
         </button>
-
+        <div className="uppercase text-center text-sm text-gray-600 dark:text-gray-400">
+          Or continue with
+        </div>
         <div className="flex gap-3">
           <LoginAltBtn onClickBtn={() => startOAuth("google")}>
-            {oauthLoading === "google" ? <Spinner size={18} /> : <FaGoogle className="w-5 h-5" />}
+            {oauthLoading === "google" ? (
+              <Spinner size={18} />
+            ) : (
+              <FaGoogle className="w-5 h-5" />
+            )}
             Google
           </LoginAltBtn>
 
           <LoginAltBtn onClickBtn={() => startOAuth("github")}>
-            {oauthLoading === "github" ? <Spinner size={18} /> : <RiGithubFill className="w-5 h-5" />}
+            {oauthLoading === "github" ? (
+              <Spinner size={18} />
+            ) : (
+              <RiGithubFill className="w-5 h-5" />
+            )}
             GitHub
           </LoginAltBtn>
         </div>
 
-        <p className="text-center text-sm text-gray-600">
+        <p className="text-center text-sm text-gray-600 dark:text-gray-400">
           Already have an account?{" "}
           <Link to="/login" className="text-blue-500 font-semibold">
             Sign in

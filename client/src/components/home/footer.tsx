@@ -3,8 +3,8 @@ const Footer = () => {
   const year = new Date().getFullYear()
 
   return (
-    <footer className="bg-[#f0f6ff]">
-      <div className="border-t py-8  text-center">
+    <footer>
+      <div className=" py-8  text-center dark:text-gray-400">
         © {year} FastConvert. Made with ❤️ by{" "}
         <a
           href="https://orji-dominion.vercel.app/"

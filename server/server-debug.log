@@ -140,3 +140,19 @@ Error: no export filter
 [2026-02-21T02:52:41.590Z] Moved file to C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\tmp\1771642361580-3e1a91e1628dc100-Screenshot (2).png
 [2026-02-21T02:52:41.595Z] Converting Image to PDF: C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\tmp\1771642361580-3e1a91e1628dc100-Screenshot (2).png -> C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\uploads\1771642361595-159d3b58004c55fd-Screenshot (2).pdf
 [2026-02-21T02:52:42.795Z] Conversion completed successfully
+[2026-02-22T01:08:51.258Z] Request received at /upload
+[2026-02-22T01:08:51.422Z] Processing upload request
+[2026-02-22T01:08:51.431Z] Uploaded file: Screenshot (1).png, path: C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\tmp\7be5cb5ce1b0f08155fe4c9630c47f8b, size: 288998
+[2026-02-22T01:08:51.433Z] File type: png
+[2026-02-22T01:08:51.434Z] Convert to: pdf
+[2026-02-22T01:08:51.440Z] Moved file to C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\tmp\1771722531437-23ec528b4b188642-Screenshot (1).png
+[2026-02-22T01:08:51.447Z] Converting Image to PDF: C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\tmp\1771722531437-23ec528b4b188642-Screenshot (1).png -> C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\uploads\1771722531446-e4f2863e66b90d04-Screenshot (1).pdf
+[2026-02-22T01:08:52.515Z] Conversion completed successfully
+[2026-02-22T01:09:28.090Z] Request received at /upload
+[2026-02-22T01:09:28.187Z] Processing upload request
+[2026-02-22T01:09:28.204Z] Uploaded file: bens-data.xlsx, path: C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\tmp\7f1f7df73acf09830819438d7ca72aaf, size: 15739
+[2026-02-22T01:09:28.222Z] File type: xlsx
+[2026-02-22T01:09:28.239Z] Convert to: pdf
+[2026-02-22T01:09:28.270Z] Moved file to C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\tmp\1771722568262-1774770e1e44537d-bens-data.xlsx
+[2026-02-22T01:09:28.287Z] Converting Office to PDF: C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\tmp\1771722568262-1774770e1e44537d-bens-data.xlsx -> C:\Users\Orji Dominion\Documents\Programiing\graphite\fastConvert\server\uploads\1771722568287-d62a1103a2d3332f-bens-data.pdf
+[2026-02-22T01:09:56.050Z] Conversion completed successfully

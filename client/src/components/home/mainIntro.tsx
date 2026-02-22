@@ -4,15 +4,15 @@ import { Link } from "react-router-dom";
 const MainIntro = () => {
   return (
     <div>
-      <section className=" bg-[#f0f6ff] mx-auto px-6 py-24 text-center">
+      <section className=" mx-auto px-6 py-24 text-center">
         <div className="max-w-3xl mx-auto space-y-6">
-          <h1 className="text-5xl font-bold text-foreground leading-tight">
+          <h1 className="text-5xl dark:text-[#f8fafc] font-bold text-foreground leading-tight">
             Convert Any File Format{" "}
             <span className="gradient-card from-primary to-cyan-400 bg-clip-text text-transparent">
               In Seconds
             </span>
           </h1>
-          <p className="text-xl text-[#68788e] max-w-2xl mx-auto">
+          <p className="text-xl text-[#68788e] dark:text-gray-400 max-w-2xl mx-auto">
             The fastest, most secure file converter. Transform images,
             documents, and media files with just a few clicks. No software
             installation required.
@@ -28,13 +28,13 @@ const MainIntro = () => {
               </button>
             </Link>
             <Link to="/signup">
-              <button className="text-lg px-7 py-2 border border-[#d3d3d3]
-               transition-all hover:gradient-card rounded-lg">
+              <button className="text-lg px-7 py-2 border border-gray-800
+               transition-all hover:gradient-card rounded-lg dark:text-[#f8fafc]">
                 Create Account
               </button>
             </Link>
           </div>
-          <p className="text-sm text-[#68788e]  pt-2">
+          <p className="text-sm text-[#68788e] dark:text-gray-400 pt-2">
             No credit card required • 50 free conversions monthly
           </p>
         </div>

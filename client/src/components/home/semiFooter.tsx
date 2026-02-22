@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const SemiFooter = () => {
   return (
-    <div className="bg-[#f0f6ff] ">
+    <div>
       <section className="container  mx-auto px-6 py-16">
         <div className="max-w-4xl mx-auto text-center p-12 rounded-3xl gradient-card">
           <h2 className="text-3xl font-bold text-[#fff] mb-4">

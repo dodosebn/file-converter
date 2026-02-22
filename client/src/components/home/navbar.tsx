@@ -7,14 +7,14 @@ const Navbar = () => {
     Navigate(url);
   };
   return (
-    <header className="border-b border-border bg-[#f8fbff]">
+    <header className="border-border bg-[#f8fbff] dark:bg-[#111b30]">
       <div className="container mx-auto px-4 sm:px-6 py-4 flex flex-row
        flex-nowrap items-center justify-between">
         <Logo />
         <div className="flex items-center gap-4 shrink-0">
           <button
             onClick={() => handleClick("/login")}
-            className="text-[#68788e] hover:bg-[#25cac5] py-2 px-4 rounded-lg  font-medium hover:text-foreground whitespace-nowrap"
+            className="text-[#68788e] dark:text-gray-400 hover:bg-[#25cac5] py-2 px-4 rounded-lg  font-medium hover:text-foreground whitespace-nowrap"
           >
             Log in
           </button>

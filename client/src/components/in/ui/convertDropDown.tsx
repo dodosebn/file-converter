@@ -32,7 +32,8 @@ const ConvertDropdown = ({ onSelectConversion }: ConvertDropdownProps) => {
               flex items-center justify-between gap-3
               w-full max-w-md
               px-4 py-3
-              bg-white rounded-lg
+              text-lg
+              dark:text-[#f8fafc]
             "
           >
             <span className="font-medium truncate">{selected}</span>

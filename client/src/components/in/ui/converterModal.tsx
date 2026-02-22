@@ -1,33 +1,47 @@
 import { ArrowRight, X } from "lucide-react";
 import { convertibles } from "../data";
 import { getIconForBase, getIconForQuote } from "./getIconDemIcons";
+
 interface ConverterModalProps {
   open: boolean;
   onClose: () => void;
   onSelect: (value: string) => void;
 }
+
 const ConverterModal = ({ open, onClose, onSelect }: ConverterModalProps) => {
   if (!open) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
-      <div
-        className="absolute inset-0 bg-black/85"
-        onClick={onClose}
-      />
+      <div className="absolute inset-0 bg-black/85" onClick={onClose} />
 
-      <div className="relative w-[520px] bg-[#f0f6ff] rounded-xl shadow-xl overflow-hidden py-5">
+      <div className="relative w-[520px] bg-[#f0f6ff] dark:bg-[#0f1729] rounded-xl shadow-xl overflow-hidden py-5">
         <div className="flex items-center justify-between px-6 border-b">
-          <span className="font-bold uppercase">Select Converter Tool</span>
+          <span className="font-bold uppercase dark:text-[#f8fafc]">
+            Select Converter Tool
+          </span>
+
           <button
             onClick={onClose}
-            className="border border-blue-400 rounded-full p-3 hover:bg-[#f3f9ff] transition"
+            className="border-none p-3 transition hover:opacity-70"
           >
             <X className="w-5 h-5 text-gray-500" />
           </button>
         </div>
 
-        <div className="max-h-[400px] overflow-y-auto">
+        <div
+          className="
+            max-h-[400px] 
+            overflow-y-auto 
+           custom-scroll
+            scrollbar-thin
+            scrollbar-thumb-blue-500/60
+            hover:scrollbar-thumb-blue-600
+            scrollbar-track-transparent
+            dark:scrollbar-thumb-blue-400/60
+            transition-colors
+          "
+        >
           {convertibles.map((item, index) => (
             <div
               key={index}
@@ -37,8 +51,17 @@ const ConverterModal = ({ open, onClose, onSelect }: ConverterModalProps) => {
               }}
               className="mt-3"
             >
-              <div className="flex items-center gap-6 mx-4 px-3 py-5 hover:bg-[#d9edfc] 
-                cursor-pointer transition border-b-2 border-r border-blue-500 rounded-md"
+              <div
+                className="
+                  flex items-center gap-6 mx-4 px-3 py-5 
+                  dark:hover:bg-[#133151] 
+                  hover:bg-[#d9edfc] 
+                  cursor-pointer 
+                  transition 
+                  border-b-2 border-r 
+                  border-blue-500 
+                  rounded-md
+                "
               >
                 <div className="flex items-center gap-2">
                   {getIconForBase(item.base)}
@@ -47,10 +70,11 @@ const ConverterModal = ({ open, onClose, onSelect }: ConverterModalProps) => {
                 </div>
 
                 <div className="flex flex-col">
-                  <span className="font-semibold text-lg">
+                  <span className="font-semibold text-lg dark:text-[#f8fafc]">
                     {item.base} to {item.quote}
                   </span>
-                  <span className="text-sm text-gray-500">
+
+                  <span className="text-xs text-gray-500 dark:text-gray-400 pt-2">
                     Convert {item.base} to {item.quote} format
                   </span>
                 </div>

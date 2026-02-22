@@ -38,7 +38,7 @@ const Sidebar: React.FC<SidebarProps> = ({
 
       case "logout":
         logout();
-        navigate("/login"); // or "/" depending on your app
+        navigate("/login");
         break;
 
       default: {
@@ -86,7 +86,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   }
 
   return (
-    <aside className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm w-72">
+    <aside className="bg-white dark:bg-[#141f38] rounded-xl p-6  shadow-sm w-72">
       {renderSidebarContent()}
     </aside>
   );
@@ -103,14 +103,14 @@ const Sidebar: React.FC<SidebarProps> = ({
             {SideItems.map((item) => {
               const Icon = item.icon;
               const baseClasses =
-                "flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition w-full";
+                "flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:hover:bg-[#1d283a]  hover:bg-gray-50 hover:text-gray-900 transition w-full";
 
               if (isNavItem(item)) {
                 return (
                   <li key={item.name}>
-                    <a href={item.path} className={baseClasses}>
-                      <Icon />
-                      <span className="font-medium text-sm">
+                    <a href={item.path} className={`${baseClasses} dark:text-gray-400 dark:hover:text-[#f8fafc]`}>
+                     <Icon />
+                      <span className="font-medium text-sm ">
                         {item.name}
                       </span>
                     </a>
@@ -132,7 +132,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                     <button
                       type="button"
                       onClick={() => handleAction(item.action)}
-                      className={baseClasses}
+                      className={`${baseClasses} dark:text-gray-400 dark:hover:text-[#f8fafc]`}
                     >
                       <DisplayIcon />
                       <span className="font-medium text-sm">

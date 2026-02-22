@@ -28,10 +28,10 @@ const ForgotForm = () => {
   };
 
   return (
-    <div className="flex items-center justify-center bg-[#f0f6ff] px-4">
+    <div className="flex items-center justify-center px-4">
       <form
         onSubmit={handleSubmit}
-        className="md:w-[26rem] max-w-md rounded-xl bg-white p-6 shadow-xl space-y-6"
+        className="md:w-[26rem] max-w-md rounded-xl bg-white dark:bg-[#141f38]  p-6 shadow-xl space-y-6"
       >
         <AccountIntro
           heading="Forgot Password?"
@@ -39,7 +39,7 @@ const ForgotForm = () => {
         />
 
         <div className="space-y-1">
-          <label className="text-sm font-medium text-gray-700">Email</label>
+          <label className="text-sm font-medium text-gray-700 dark:text-[#f8fafc]">Email</label>
           <div className="relative">
             <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
             <input
@@ -48,7 +48,10 @@ const ForgotForm = () => {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="you@example.com"
               required
-              className="w-full rounded-lg border bg-[#f0f6ff] border-gray-300 pl-10 pr-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#18b4d8]"
+              className="w-full rounded-lg text-gray-900 dark:text-[#f8fafc]
+placeholder:text-gray-400 dark:placeholder:text-gray-500 border bg-[#f0f6ff] dark:bg-[#0f1729]
+               border-[#141f38] pl-10 pr-4 py-2 text-sm focus:outline-none
+                focus:ring-2 focus:ring-[#18b4d8]"
             />
           </div>
         </div>
@@ -66,7 +69,7 @@ const ForgotForm = () => {
           <Link
             to="/login"
             className="w-full flex items-center justify-center gap-2 rounded-xl
-              hover:bg-[#18b4d8] py-2 text-black hover:text-white hover:opacity-90 transition"
+              hover:bg-[#18b4d8] dark:text-[#f8fafc] py-2 text-black hover:text-white hover:opacity-90 transition"
           >
             <MoveLeft className="w-4 h-4" />
             Back to Login

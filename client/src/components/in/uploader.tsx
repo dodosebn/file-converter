@@ -27,7 +27,7 @@ const ALLOWED_EXTENSIONS = [
   "png",
 ];
 
-const MAX_FILE_SIZE = 20 * 1024 * 1024; 
+const MAX_FILE_SIZE = 20 * 1024 * 1024;
 
 const Uploader = () => {
   const { uploadFile, loading: isUploading, files: historyFiles } = useFile();
@@ -45,7 +45,7 @@ const Uploader = () => {
     const extension = file.name.split(".").pop()?.toLowerCase();
     if (!extension || !ALLOWED_EXTENSIONS.includes(extension)) {
       toast.error(
-        `Unsupported file type. Allowed: ${ALLOWED_EXTENSIONS.join(", ")}`
+        `Unsupported file type. Allowed: ${ALLOWED_EXTENSIONS.join(", ")}`,
       );
       return false;
     }
@@ -55,18 +55,19 @@ const Uploader = () => {
       return false;
     }
 
-    // Strict Validation: Check if file matches selected source "base" type
-    // allow image grouping for JPG base
     if (convertFrom === "jpg") {
       if (!["jpg", "jpeg", "png"].includes(extension)) {
-        toast.error("Please upload an image file (JPG, PNG) for this conversion.");
+        toast.error(
+          "Please upload an image file (JPG, PNG) for this conversion.",
+        );
         return false;
       }
     } else {
-      // For specific types like doc, docx, xlsx, pdf - must match exactly
       if (extension !== convertFrom) {
-         toast.error(`Please upload a .${convertFrom} file to match your selection.`);
-         return false;
+        toast.error(
+          `Please upload a .${convertFrom} file to match your selection.`,
+        );
+        return false;
       }
     }
 
@@ -78,12 +79,14 @@ const Uploader = () => {
 
     const tempId = Date.now().toString();
 
-    // Add file immediately (converting state)
+    const baseName = file.name.replace(/\.[^.]+$/, "");
+    const targetName = `${baseName}.${convertTo}`;
+
     setFiles((prev) => [
       ...prev,
       {
         id: tempId,
-        name: file.name,
+        name: targetName,
         size: `${(file.size / 1024 / 1024).toFixed(2)}mb`,
         progress: 0,
         status: "converting" as const,
@@ -95,22 +98,19 @@ const Uploader = () => {
         file,
         convertTo,
         onProgress: (p: number) => {
-          setFiles((prev) => prev.map((f) => f.id === tempId ? { ...f, progress: p } : f
-          )
+          setFiles((prev) =>
+            prev.map((f) => (f.id === tempId ? { ...f, progress: p } : f)),
           );
         },
       });
-
-      // Remove from local "uploading" state, as it will appear in historyFiles
       setFiles((prev) => prev.filter((f) => f.id !== tempId));
-
     } catch (_error) {
       toast.error("Conversion failed");
 
       setFiles((prev) =>
         prev.map((f) =>
-          f.id === tempId ? { ...f, status: "error" as const } : f
-        )
+          f.id === tempId ? { ...f, status: "error" as const } : f,
+        ),
       );
     }
   };
@@ -132,20 +132,22 @@ const Uploader = () => {
     e.currentTarget.classList.remove("border-blue-600", "bg-blue-50");
   };
 
-  // Map history files to ConvertedFile format
-  const mappedHistory: ConvertedFile[] = historyFiles.map((f) => ({
-    id: f.id.toString(),
-    name: f.originalName,
-    size: "0mb", // Size not persisted in DB currently
-    progress: 100,
-    status: "completed",
-    downloadUrl: f.downloadUrl,
-  }));
+  const mappedHistory: ConvertedFile[] = historyFiles.map((f) => {
+    const baseName = f.originalName.replace(/\.[^.]+$/, "");
+    return {
+      id: f.id.toString(),
+      name: `${baseName}.${f.targetType}`,
+      size: "0mb", 
+      progress: 100,
+      status: "completed",
+      downloadUrl: f.downloadUrl,
+    };
+  });
 
   const displayFiles = [...files, ...mappedHistory];
 
   return (
-    <section className="flex flex-col gap-8 bg-white rounded-xl p-8">
+    <section className="flex flex-col gap-8 bg-white dark:bg-[#141f38] rounded-xl p-8">
       <ConvertDropdown
         onSelectConversion={(base, quote) => {
           setConvertFrom(base);
@@ -159,7 +161,7 @@ const Uploader = () => {
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         className={`
-          border-2 border-dashed border-blue-500 bg-[#f3fafe] rounded-2xl p-12 text-center 
+          border-2 border-dashed border-blue-500 bg-[#f3fafe] dark:bg-[#142541] rounded-2xl p-12 text-center 
           ${
             !isUploading
               ? "cursor-pointer hover:border-blue-600 hover:bg-blue-50"
@@ -174,20 +176,18 @@ const Uploader = () => {
           ref={inputRef}
           accept={ALLOWED_EXTENSIONS.map((ext) => `.${ext}`).join(",")}
           disabled={isUploading}
-          onChange={(e) =>
-            e.target.files && handleUpload(e.target.files[0])
-          }
+          onChange={(e) => e.target.files && handleUpload(e.target.files[0])}
         />
-
-        <Download className="w-12 h-12 text-blue-500 mx-auto" />
-
-        <h2 className="font-semibold mt-4">
+<div className="bg-[#dbf1fb] dark:bg-[#133151] p-4 rounded-full w-fit mx-auto">
+        <Download className="w-9 h-9 text-blue-500 mx-auto" />
+</div>
+        <h2 className="font-semibold mt-4 dark:text-[#f8fafc]">
           {isUploading
             ? `Uploading... ${files[files.length - 1]?.progress ?? 0}%`
             : "Click or drag file here"}
         </h2>
 
-        <p className="text-sm text-gray-500 mt-2">
+        <p className="text-sm text-gray-400 mt-2">
           Supported: PDF, DOC, DOCX, XLS, XLSX, JPG, PNG (Max 20MB)
         </p>
 
@@ -206,8 +206,8 @@ const Uploader = () => {
       <ConvertAlert
         files={displayFiles}
         onClearAll={() => {
-           setFiles([]);
-           // TODO: Implement clear history in context?
+          setFiles([]);
+          // TODO: Implement clear history in context?
         }}
       />
     </section>

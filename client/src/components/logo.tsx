@@ -8,7 +8,7 @@ const Logo = () => {
       <div className="w-8 h-8 rounded-lg gradient-card flex items-center justify-center">
         <FileImage className="w-4 h-4 text-[#fafdfe]" />
       </div>
-      <span className="font-semibold text-lg text-foreground">
+      <span className="font-semibold text-lg text-foreground dark:text-[#f8fafc]">
         FastConvert
       </span>
     </div>

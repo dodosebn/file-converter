@@ -4,6 +4,6 @@ exports.prisma = void 0;
 require("dotenv/config");
 const adapter_pg_1 = require("@prisma/adapter-pg");
 const client_1 = require("../src/generated/prisma/client");
-const connectionString = `${process.env.DATABASE_URL}`;
+const connectionString = `${process.env.DATABASE_URL}?sslmode=require`;
 const adapter = new adapter_pg_1.PrismaPg({ connectionString });
 exports.prisma = new client_1.PrismaClient({ adapter });

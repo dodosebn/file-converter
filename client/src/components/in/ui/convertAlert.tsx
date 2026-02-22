@@ -45,20 +45,17 @@ const ConvertAlert = ({ files, onClearAll }: ConvertAlertProps) => {
           key={file.id}
           className="flex justify-between items-center mb-4"
         >
-          {/* File info */}
           <div className="flex gap-2 items-center">
-            <span className="bg-[#e6f5fc] p-2 rounded-md">
+            <span className="bg-[#e6f5fc] p-2 rounded-md dark:bg-[#133151] ">
               <FileImage className="md:w-6 md:h-6 w-4 h-4 text-blue-500" />
             </span>
 
-            <span className="md:font-semibold font-medium text-gray-800 text-md md:text-lg">
+            <span className="md:font-semibold font-medium text-gray-800 dark:text-[#f8fafc] text-md md:text-lg">
               {file.name}
             </span>
           </div>
 
-          {/* Right side */}
           <ul className="flex gap-x-6 items-center">
-            {/* Status */}
             <li className="text-green-600 hidden md:flex items-center gap-x-2">
               {file.status === "completed" ? (
                 <>
@@ -73,41 +70,37 @@ const ConvertAlert = ({ files, onClearAll }: ConvertAlertProps) => {
               )}
             </li>
 
-            {/* Size */}
-            <li>{file.size}</li>
+            <li className="dark:text-gray-400">{file.size}</li>
 
-            {/* Download */}
             <li>
               <button
                 disabled={file.status !== "completed"}
                 onClick={() => handleDownload(file.downloadUrl)}
-                className={`transition ${
+                className={`transition dark:text-[#f8fafc]  ${
                   file.status !== "completed"
                     ? "opacity-40 cursor-not-allowed"
                     : "hover:scale-110"
                 }`}
               >
-                <Download className="w-5 h-5 text-gray-700" />
+                <Download className="w-5 h-5 text-gray-700 dark:text-gray-400"/>
               </button>
             </li>
 
-            {/* Menu icon */}
             <li>
-              <Ellipsis className="w-5 h-5 text-gray-500 rotate-90" />
+              <Ellipsis className="w-5 h-5 text-gray-500 rotate-90  dark:text-gray-400" />
             </li>
           </ul>
         </section>
       ))}
 
-      {/* Footer */}
       <div className="border-t border-gray-300 my-6">
         <div className="flex flex-col md:flex-row md:justify-between pt-6 gap-4 items-stretch md:items-center">
-          <div className="flex gap-x-3 items-center">
-            <p>Total {files.length} Files</p>
+          <div className="flex gap-x-3 items-center text-sm">
+            <p className="dark:text-gray-400">Total {files.length} Files</p>
 
             <button
               onClick={onClearAll}
-              className="flex items-center gap-x-2 font-medium text-red-600"
+              className="flex items-center gap-x-1 font-medium text-red-600"
             >
               <Trash2 className="w-4 h-4" />
               Clear All
