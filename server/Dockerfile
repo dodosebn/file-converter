@@ -3,6 +3,7 @@ FROM node:20-slim
 # Install LibreOffice and other dependencies
 RUN apt-get update && apt-get install -y \
     libreoffice \
+    libfontconfig1 \
     libreoffice-writer \
     libreoffice-calc \
     libreoffice-impress \
@@ -29,7 +30,7 @@ RUN npm install
 COPY . .
 
 # Generate Prisma client
-RUN npx prisma generate --schema=./src/prisma/schema.prisma
+RUN npx prisma generate --schema=src/prisma/schema.prisma
 
 # Build the application
 RUN npm run build

@@ -18,7 +18,7 @@ const MainIntro = () => {
             installation required.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-            <Link to="/home">
+            <Link to="/">
               <button
                 className="gradient-card flex items-center hover:opacity-90 gap-2 
               text-lg px-7 py-2 text-[#fafdfe] rounded-lg "
