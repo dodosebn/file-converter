@@ -75,7 +75,10 @@ const Uploader = () => {
   };
 
   const handleUpload = async (file: File) => {
-    if (!validateFile(file)) return;
+    if (!validateFile(file)) {
+      if (inputRef.current) inputRef.current.value = "";
+      return;
+    }
 
     const tempId = Date.now().toString();
 
@@ -104,8 +107,10 @@ const Uploader = () => {
         },
       });
       setFiles((prev) => prev.filter((f) => f.id !== tempId));
+      if (inputRef.current) inputRef.current.value = "";
     } catch (_error) {
       toast.error("Conversion failed");
+      if (inputRef.current) inputRef.current.value = "";
 
       setFiles((prev) =>
         prev.map((f) =>
