@@ -30,6 +30,7 @@ RUN npm install
 COPY . .
 
 # Generate Prisma client
+ENV DATABASE_URL="postgresql://dummy:dummy@localhost:5432/dummy"
 RUN npx prisma generate --schema=src/prisma/schema.prisma
 
 # Build the application
@@ -38,5 +39,5 @@ RUN npm run build
 # Expose the port
 EXPOSE 5000
 
-# Start the application
-CMD ["npm", "start"]
+# Start the application with migrations
+CMD npx prisma migrate deploy --schema=src/prisma/schema.prisma && npm start
