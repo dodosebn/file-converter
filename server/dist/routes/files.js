@@ -121,12 +121,19 @@ const logDebug = (msg) => {
     }
 };
 router.post("/upload", auth_1.auth, (req, res, next) => {
+    // Fail-fast: Check Content-Length before Multer even tries to read the body
+    const contentLength = parseInt(req.headers["content-length"] || "0");
+    if (contentLength > 20 * 1024 * 1024) {
+        logDebug(`Rejection: Content-Length ${contentLength} exceeds 20MB limit`);
+        return res.status(413).json({ message: "File too large (Max 20MB)" });
+    }
     logDebug("Request received at /upload");
     const uploadMiddleware = upload.single("file");
     uploadMiddleware(req, res, (err) => {
         if (err) {
             logDebug(`Multer error: ${err.message}`);
-            return res.status(400).json({ message: `Multer error: ${err.message}` });
+            const message = err.message === "File too large" ? "File size limit exceeded (20MB)" : err.message;
+            return res.status(400).json({ message });
         }
         next();
     });
