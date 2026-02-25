@@ -108,8 +108,8 @@ const Uploader = () => {
       });
       setFiles((prev) => prev.filter((f) => f.id !== tempId));
       if (inputRef.current) inputRef.current.value = "";
-    } catch (_error) {
-      toast.error("Conversion failed");
+    } catch (err: any) {
+      // Message already toasted in context
       if (inputRef.current) inputRef.current.value = "";
 
       setFiles((prev) =>

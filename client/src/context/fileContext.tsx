@@ -70,6 +70,7 @@ export const FileProvider: React.FC<{ children: ReactNode }> = ({
       formData,
       {
         withCredentials: true,
+        timeout: 180000, // 3 minute timeout
         headers: {
             Authorization: `Bearer ${token}`
         },
@@ -94,8 +95,15 @@ export const FileProvider: React.FC<{ children: ReactNode }> = ({
     
     return res.data.file;
   } catch (err: any) {
-    const message =
-      err.response?.data?.message || "Upload failed";
+    let message = "Upload failed";
+    
+    if (err.code === 'ECONNABORTED' || err.message?.includes('timeout')) {
+      message = "Upload timed out (Connection too slow)";
+    } else if (err.response?.status === 413) {
+      message = "File too large (Limit: 20MB)";
+    } else {
+      message = err.response?.data?.message || "Upload failed";
+    }
 
     setError(message);
     toast.error(message);

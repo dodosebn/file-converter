@@ -14,7 +14,7 @@ const Navbar = () => {
         <div className="flex items-center gap-4 shrink-0">
           <button
             onClick={() => handleClick("/login")}
-            className="text-[#68788e] dark:text-gray-400 hover:bg-[#25cac5] py-2 px-4 rounded-lg  font-medium hover:text-foreground whitespace-nowrap"
+            className="text-[#68788e]  dark:text-[#f8fafc] hover:bg-[#25cac5] py-2 px-4 rounded-lg  font-medium hover:text-foreground whitespace-nowrap"
           >
             Log in
           </button>
